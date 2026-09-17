@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<title>學員體態訓練紀錄 Student Postural & Programming Log</title>
+<style>
+  :root{
+    --ink:#1f2933; --sub:#5c6b73; --line:#e0e4e6; --bg:#f7f8f9;
+    --accent-soft:#eef1f2; --danger:#b3452c; --program:#2b5a6b; --program-soft:#e8f0f2;
+    --ok:#3a7a4e; --ok-soft:#e7f3ea;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Noto Sans CJK TC","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+    padding-bottom:24px; touch-action:manipulation;
+  }
+  .wrap{max-width:640px; margin:0 auto;}
+  header{
+    background:var(--ink); color:#fff; padding:calc(14px + env(safe-area-inset-top)) 18px 12px;
+    position:sticky; top:0; z-index:5; display:flex; align-items:center; gap:10px;
+  }
+  header .backBtn{
+    background:rgba(255,255,255,.12); border:none; color:#fff; border-radius:8px;
+    padding:8px 11px; font-size:14px; cursor:pointer; display:none;
+  }
+  header .htext{flex:1;}
+  header .title{font-size:16px; font-weight:700;}
+  header .title .en{font-size:11px; font-weight:500; color:#c7cdd1; display:block;}
+  header .refreshBtn{
+    background:rgba(255,255,255,.12); border:none; color:#fff; border-radius:8px;
+    padding:8px 10px; font-size:14px; cursor:pointer;
+  }
+
+  .config-warning{
+    margin:10px 14px; padding:10px 12px; background:#fff4e5; border:1px solid #f0c987;
+    border-radius:8px; font-size:11.5px; color:#7a5a1e; display:none; line-height:1.5;
+  }
+
+  .screen{display:none;}
+  .screen.active{display:block;}
+
+  /* ---- List screen ---- */
+  .search-bar{margin:12px 14px; display:flex; gap:8px;}
+  .search-bar input{
+    flex:1; padding:11px 12px; border:1px solid var(--line); border-radius:9px; font-size:16px;
+    font-family:inherit; background:#fff;
+  }
+  .search-bar button{
+    background:var(--ink); color:#fff; border:none; border-radius:9px; padding:0 16px;
+    font-size:14px; font-weight:700; cursor:pointer; white-space:nowrap;
+  }
+  .student-list{margin:0 14px;}
+  .student-card{
+    background:#fff; border-radius:10px; padding:14px; margin-bottom:8px;
+    box-shadow:0 1px 4px rgba(0,0,0,.05); display:flex; align-items:center; justify-content:space-between;
+    cursor:pointer;
+  }
+  .student-card .name{font-size:15px; font-weight:700;}
+  .student-card .meta{font-size:11px; color:var(--sub); margin-top:2px;}
+  .student-card .chev{color:#c7cdd1; font-size:16px;}
+  .empty-state{text-align:center; color:var(--sub); font-size:13px; padding:40px 20px; line-height:1.7;}
+  .empty-state .en{display:block; font-size:11px; color:#9aa5ab;}
+
+  /* ---- Detail screen ---- */
+  .student-header{
+    background:#fff; margin:12px 14px; border-radius:10px; padding:16px;
+    box-shadow:0 1px 4px rgba(0,0,0,.06); text-align:center;
+  }
+  .student-header .sname{font-size:19px; font-weight:700;}
+
+  .card-block{
+    background:#fff; margin:10px 14px; border-radius:10px; overflow:hidden;
+    box-shadow:0 1px 4px rgba(0,0,0,.05);
+  }
+  .card-block .block-head{
+    padding:12px 14px; font-size:14px; font-weight:700; display:flex; justify-content:space-between; align-items:center;
+    background:var(--accent-soft);
+  }
+  .card-block .block-head .en{font-size:11px; font-weight:500; color:var(--sub); display:block;}
+  .card-block .block-body{padding:12px 14px;}
+
+  .status-pill{
+    display:inline-block; font-size:11px; font-weight:700; padding:3px 10px; border-radius:99px;
+  }
+  .status-pill.done{background:var(--ok-soft); color:var(--ok);}
+  .status-pill.pending{background:#fff4e5; color:#a06a1e;}
+
+  .btn{
+    border:none; border-radius:9px; padding:11px 18px; font-size:14px; font-weight:700;
+    cursor:pointer; min-height:42px; text-align:center; line-height:1.2;
+  }
+  .btn .en{display:block; font-size:10px; font-weight:500; opacity:.75;}
+  .btn-dark{background:var(--ink); color:#fff;}
+  .btn-program{background:var(--program); color:#fff;}
+  .btn-outline{background:#fff; color:var(--ink); border:1px solid var(--line);}
+  .btn-block{width:100%;}
+
+  .assess-summary{white-space:pre-line; font-size:12.5px; color:var(--ink); line-height:1.6; background:var(--bg); border-radius:8px; padding:10px 12px; margin-top:8px;}
+  .assess-date{font-size:11px; color:var(--sub); margin-top:6px;}
+
+  .history-item{
+    border-bottom:1px solid var(--line); padding:10px 0;
+  }
+  .history-item:last-child{border-bottom:none;}
+  .history-item .hdate{font-size:12.5px; font-weight:700; color:var(--program);}
+  .history-item .hsummary{white-space:pre-line; font-size:12.5px; color:var(--ink); margin-top:5px; line-height:1.6;}
+  .history-item .hnotes{font-size:12px; color:var(--sub); margin-top:6px; font-style:italic; white-space:pre-line;}
+  .history-item .hnotes .en{display:block; font-size:10px; color:#9aa5ab; font-style:normal;}
+
+  .loading{text-align:center; color:var(--sub); font-size:12.5px; padding:16px 0;}
+
+  /* ---- shared form bits (assessment + add-entry) ---- */
+  .meta{
+    background:#fff; margin:12px 14px; border-radius:10px; padding:12px 14px;
+    box-shadow:0 1px 4px rgba(0,0,0,.06); display:flex; flex-direction:column; gap:8px;
+  }
+  .meta-row{display:flex; gap:8px;}
+  .meta label{font-size:11px; color:var(--sub); display:block; margin-bottom:3px;}
+  .meta label .en{color:#9aa5ab; font-weight:400;}
+  .meta input{
+    width:100%; padding:10px 9px; border:1px solid var(--line); border-radius:7px;
+    font-size:16px; font-family:inherit; background:#fff; color:var(--ink);
+  }
+  .meta-col{flex:1;}
+
+  .flow{
+    display:flex; justify-content:space-between; margin:0 14px 10px; font-size:10px;
+    color:var(--sub); font-weight:600; text-align:center;
+  }
+  .flow span.n{color:var(--ink);}
+  .flow .en{display:block; font-size:8.5px; font-weight:400; color:#9aa5ab;}
+
+  details.section{
+    background:#fff; margin:10px 14px; border-radius:10px; overflow:hidden;
+    box-shadow:0 1px 4px rgba(0,0,0,.05);
+  }
+  details.section > summary{
+    list-style:none; cursor:pointer; padding:14px; font-size:14.5px; font-weight:700;
+    background:var(--ink); color:#fff; display:flex; justify-content:space-between; align-items:center;
+    min-height:48px; user-select:none;
+  }
+  details.section.program > summary{ background:var(--program); }
+  details.section > summary::-webkit-details-marker{display:none;}
+  details.section > summary .arrow{transition:transform .2s; font-size:11px;}
+  details.section[open] > summary .arrow{transform:rotate(90deg);}
+  .section-body{padding:10px 14px 14px;}
+  .section-hint{font-size:11px; color:var(--sub); margin:-2px 0 10px; font-style:italic;}
+  .section-hint.program-hint{color:var(--program);}
+
+  .item{margin-bottom:14px;}
+  .item:last-child{margin-bottom:0;}
+  .item-label{font-size:13.5px; font-weight:700; margin-bottom:6px;}
+  .item-label .en{font-size:11.5px; font-weight:500; color:var(--sub); margin-left:5px;}
+  .side-row{display:flex; align-items:center; gap:8px; margin-bottom:6px;}
+  .side-row:last-child{margin-bottom:0;}
+  .side-tag{
+    flex:0 0 20px; font-size:11px; font-weight:700; color:var(--sub);
+    background:var(--accent-soft); border-radius:5px; text-align:center; padding:3px 0;
+  }
+  .chips{display:flex; flex-wrap:wrap; gap:6px; flex:1;}
+  .chip{
+    border:1px solid var(--line); background:#fff; color:var(--ink);
+    border-radius:14px; padding:7px 13px; font-size:13px; cursor:pointer;
+    user-select:none; transition:all .12s;
+    min-height:38px; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; line-height:1.25;
+  }
+  .chip .en{font-size:10px; font-weight:400; color:var(--sub); margin-top:1px;}
+  .chip.on{background:var(--danger); border-color:var(--danger); color:#fff; font-weight:600;}
+  .chip.on .en{color:#f4d9d0;}
+
+  .textline{display:flex; align-items:center; gap:8px; margin-top:6px; flex-wrap:wrap;}
+  .textline input[type=text]{
+    flex:1; min-width:120px; padding:9px 9px; border:1px solid var(--line); border-radius:7px;
+    font-size:16px; font-family:inherit;
+  }
+
+  .ex-card{
+    border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:10px;
+    background:#fbfcfc; position:relative;
+  }
+  .ex-card .ex-num{
+    position:absolute; top:-9px; left:10px; background:var(--program); color:#fff;
+    font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:99px;
+  }
+  .ex-row{display:flex; gap:8px; margin-top:8px;}
+  .ex-row:first-of-type{margin-top:10px;}
+  .ex-field{flex:1; display:flex; flex-direction:column; gap:3px;}
+  .ex-field label{font-size:10.5px; color:var(--sub);}
+  .ex-field label .en{color:#9aa5ab;}
+  .ex-field input, .ex-field select{
+    padding:8px 8px; border:1px solid var(--line); border-radius:7px; font-size:15px;
+    font-family:inherit; background:#fff; color:var(--ink); width:100%;
+  }
+  .ex-remove{
+    display:block; margin:8px 0 0 auto; background:none; border:none; color:var(--danger);
+    font-size:12px; cursor:pointer; padding:4px 6px; font-weight:600;
+  }
+  .add-ex-btn{
+    width:100%; padding:12px; border:1.5px dashed var(--program); border-radius:10px;
+    background:var(--program-soft); color:var(--program); font-size:14px; font-weight:700;
+    cursor:pointer; margin-bottom:12px; min-height:44px;
+  }
+  .add-ex-btn .en{display:block; font-size:10.5px; font-weight:500;}
+  .notes-field{display:flex; flex-direction:column; gap:5px;}
+  .notes-field label{font-size:12px; font-weight:700; color:var(--ink);}
+  .notes-field label .en{font-size:10.5px; font-weight:500; color:var(--sub); margin-left:5px;}
+  .notes-field textarea{
+    width:100%; min-height:70px; padding:9px; border:1px solid var(--line); border-radius:8px;
+    font-family:inherit; font-size:16px; resize:vertical;
+  }
+  .empty-ex{font-size:12px; color:var(--sub); text-align:center; padding:10px 0 14px; font-style:italic;}
+
+  .form-actions{margin:14px; display:flex; gap:10px;}
+
+  .toast{
+    position:fixed; left:50%; bottom:24px; transform:translateX(-50%);
+    background:var(--ink); color:#fff; padding:10px 18px; border-radius:14px;
+    font-size:13px; opacity:0; pointer-events:none; transition:opacity .25s; z-index:20;
+    max-width:88%; text-align:center; line-height:1.4;
+  }
+  .toast.show{opacity:1;}
+</style>
+</head>
+<body>
+
+<header>
+  <button class="backBtn" id="backBtn" onclick="goToList()">‹ 返回<span style="display:block;font-size:9px;">Back</span></button>
+  <div class="htext">
+    <div class="title" id="headerTitle">學員體態訓練紀錄<span class="en">Student Postural & Programming Log</span></div>
+  </div>
+  <button class="refreshBtn" id="refreshBtn" onclick="handleRefresh()">🔄</button>
+</header>
+
+<div class="wrap">
+<div class="config-warning" id="configWarning">
+  ⚠️ 尚未設定 Google 試算表連線（APPS_SCRIPT_URL），無法讀取或寫入資料。<br>
+  Google Sheets connection not configured yet (APPS_SCRIPT_URL) — cannot read or save data.
+</div>
+
+<!-- ============ SCREEN 1: 學員列表 Student List ============ -->
+<div class="screen active" id="screenList">
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="搜尋學員姓名 Search students" oninput="renderStudentList()">
+    <button onclick="promptAddStudent()">＋ 新增</button>
+  </div>
+  <div class="student-list" id="studentListRoot">
+    <div class="loading">載入中... Loading...</div>
+  </div>
+</div>
+
+<!-- ============ SCREEN 2: 學員詳情 Student Detail ============ -->
+<div class="screen" id="screenDetail">
+  <div class="student-header">
+    <div class="sname" id="detailName">—</div>
+  </div>
+
+  <div class="card-block">
+    <div class="block-head">體態評估 <span class="en">Postural Assessment</span></div>
+    <div class="block-body" id="assessBlockBody">
+      <div class="loading">載入中... Loading...</div>
+    </div>
+  </div>
+
+  <div class="card-block">
+    <div class="block-head">訓練紀錄歷史 <span class="en">Programming History</span></div>
+    <div class="block-body" id="historyBlockBody">
+      <div class="loading">載入中... Loading...</div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button class="btn btn-program btn-block" onclick="openAddEntry()">＋ 新增本次紀錄<span class="en">Add Today's Entry</span></button>
+  </div>
+</div>
+
+<!-- ============ SCREEN 3: 體態評估表單 Assessment Form ============ -->
+<div class="screen" id="screenAssessment">
+  <div class="student-header"><div class="sname">體態評估<span style="display:block;font-size:11px;color:var(--sub);font-weight:500;margin-top:2px;" id="assessForName"></span></div></div>
+  <div class="meta">
+    <div class="meta-row">
+      <div class="meta-col">
+        <label>評估日期 <span class="en">Assessment Date</span></label>
+        <input type="date" id="aDate">
+      </div>
+      <div class="meta-col">
+        <label>施測者 <span class="en">Examiner</span></label>
+        <input type="text" id="aExaminer" placeholder="選填 Optional">
+      </div>
+    </div>
+  </div>
+  <div class="flow">
+    <span><span class="n">①</span> 側面觀<span class="en">Side View</span></span>
+    <span><span class="n">②</span> 正面觀<span class="en">Front View</span></span>
+    <span><span class="n">③</span> 背面觀<span class="en">Back View</span></span>
+    <span><span class="n">④</span> 脊椎前捲<span class="en">Roll Down</span></span>
+  </div>
+  <div id="sectionsRoot"></div>
+  <div class="form-actions">
+    <button class="btn btn-outline btn-block" onclick="goToDetail()">取消<span class="en">Cancel</span></button>
+    <button class="btn btn-dark btn-block" id="assessSubmitBtn" onclick="submitAssessment()">送出評估<span class="en">Submit Assessment</span></button>
+  </div>
+</div>
+
+<!-- ============ SCREEN 4: 新增本次紀錄 Add Entry ============ -->
+<div class="screen" id="screenAddEntry">
+  <div class="student-header"><div class="sname">新增訓練紀錄<span style="display:block;font-size:11px;color:var(--sub);font-weight:500;margin-top:2px;" id="entryForName"></span></div></div>
+  <div class="meta">
+    <div class="meta-row">
+      <div class="meta-col">
+        <label>日期 <span class="en">Date</span></label>
+        <input type="date" id="eDate">
+      </div>
+      <div class="meta-col">
+        <label>施測者 <span class="en">Examiner</span></label>
+        <input type="text" id="eExaminer" placeholder="選填 Optional">
+      </div>
+    </div>
+  </div>
+  <details class="section program" open>
+    <summary>🏋️ 本次訓練計畫 Today's Programming<span class="arrow">▶</span></summary>
+    <div class="section-body">
+      <div class="section-hint program-hint">安排的動作　Exercises assigned this session</div>
+      <div id="exListRoot"></div>
+      <button type="button" class="add-ex-btn" onclick="addExercise()">＋ 新增動作<span class="en">Add Exercise</span></button>
+      <div class="notes-field">
+        <label>課後備註 <span class="en">Post-Class Notes</span></label>
+        <textarea id="programNotes" placeholder="整體提示、代償觀察、下次調整方向… General cues, compensation notes, adjustments for next time…" oninput="programState.notes=this.value"></textarea>
+      </div>
+    </div>
+  </details>
+  <div class="form-actions">
+    <button class="btn btn-outline btn-block" onclick="goToDetail()">取消<span class="en">Cancel</span></button>
+    <button class="btn btn-program btn-block" id="entrySubmitBtn" onclick="submitEntry()">送出紀錄<span class="en">Submit Entry</span></button>
+  </div>
+</div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===================== 設定區：請填入您的 Apps Script 網址 ===================== */
+/* ===================== CONFIG: fill in your Apps Script Web App URL ===================== */
+var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxQb7SftkrMZtxnmmNY7mYlxXihWe2fAzCAvF_5K4NReA5R0N9CdJMN8A3mKJ7OfMmB/exec";
+/* ================================================================================ */
+
+var ASSESS_HEADER = ["時間戳記 Timestamp","姓名 Name","日期 Date","施測者 Examiner","異常發現摘要 Summary","完整結果 JSON"];
+var PROGRAM_HEADER = ["時間戳記 Timestamp","姓名 Name","日期 Date","施測者 Examiner","動作清單摘要 Exercise Summary","動作清單 JSON","備註 Notes"];
+
+var APPARATUS_OPTIONS = [
+  {v:"墊上 Mat"}, {v:"核心床 Reformer"}, {v:"高背床 Cadillac"}, {v:"圓椅 Wunda Chair"},
+  {v:"脊椎矯正器 Spine Corrector"}, {v:"梯桶 Ladder Barrel"}, {v:"小道具 Props"}, {v:"其他 Other"}
+];
+
+var SECTIONS = [
+  { key:"side", title:"① 側面觀 Side View", hint:"左右都需檢查 Check both sides (R/L)", items:[
+    { key:"ankle", label:"腳踝關節", labelEn:"Ankle Joints", sides:true, options:["蹠屈","背屈"], optionsEn:["Plantar Flexed","Dorsiflexed"] },
+    { key:"knee", label:"膝關節", labelEn:"Knees", sides:true, options:["過伸","屈曲"], optionsEn:["Hyperextended","Flexed"] },
+    { key:"hip", label:"髖關節", labelEn:"Hip Joints", sides:true, options:["屈曲","伸展"], optionsEn:["Flexed","Extended"] },
+    { key:"pelvis", label:"骨盆（前後傾）", labelEn:"Pelvis (Ant/Post Tilt)", sides:true, options:["前傾","後傾"], optionsEn:["Anterior Tilt","Posterior Tilt"] },
+    { key:"lumbar", label:"腰椎", labelEn:"Lumbar Spine", sides:false, options:["平坦（前凸減少）","過度伸展（前凸增加）"], optionsEn:["Flat (Decreased Convexity)","Excessive Extension (Increased Convexity)"] },
+    { key:"lowThoracic", label:"下胸椎", labelEn:"Lower Thoracic Spine", sides:false, options:["平坦（後凸減少）","過度屈曲（後凸增加）"], optionsEn:["Flat (Decreased Convexity)","Excessive Flexion (Increased Convexity)"] },
+    { key:"upThoracic", label:"上胸椎", labelEn:"Upper Thoracic Spine", sides:false, options:["平坦（後凸減少）","過度屈曲（後凸增加）"], optionsEn:["Flat (Decreased Convexity)","Excessive Flexion (Increased Convexity)"] },
+    { key:"cervical", label:"頸椎", labelEn:"Cervical Spine", sides:false, options:["平坦（前凸減少）","過度伸展（前凸增加）"], optionsEn:["Flat (Decreased Convexity)","Excessive Extension (Increased Convexity)"] },
+    { key:"head_side", label:"頭部", labelEn:"Head", sides:false, options:["前引","後收"], optionsEn:["Forward","Retracted"] }
+  ]},
+  { key:"front", title:"② 正面觀 Front View", hint:"必要時由背面確認 Confirm from back if necessary", items:[
+    { key:"feet_front", label:"雙腳", labelEn:"Feet", sides:true, options:["內翻／旋後","外翻／旋前"], optionsEn:["Inverted / Supinated","Everted / Pronated"] },
+    { key:"knee_front", label:"膝關節", labelEn:"Knees", sides:false, options:["X型腿（膝外翻）","O型腿（膝內翻）"], optionsEn:["Knock-Kneed (Genu Valgum)","Bow-Legged (Genu Varum)"] },
+    { key:"pelvis_front", label:"骨盆", labelEn:"Pelvis", sides:false, options:["右側較高","左側較高","順時針旋轉","逆時針旋轉"], optionsEn:["Elevated Right","Elevated Left","Rotated Clockwise","Rotated Counter-Clockwise"] },
+    { key:"ribcage", label:"胸廓", labelEn:"Rib Cage", sides:false, options:["右側抬高","左側抬高","右側偏移","左側偏移","順時針旋轉","逆時針旋轉"], optionsEn:["Elevated Right","Elevated Left","Shifted Right","Shifted Left","Rotated Clockwise","Rotated Counter-Clockwise"] },
+    { key:"shoulders", label:"肩膀", labelEn:"Shoulders", sides:false, options:["右肩較高","左肩較高","右肩較低","左肩較低"], optionsEn:["Right Elevated","Left Elevated","Right Depressed","Left Depressed"] },
+    { key:"head_front", label:"頭部", labelEn:"Head", sides:false, options:["順時針旋轉","逆時針旋轉","右傾","左傾","右偏移","左偏移"], optionsEn:["Rotated Clockwise","Rotated Counter-Clockwise","Tilted Right","Tilted Left","Shifted Right","Shifted Left"] }
+  ]},
+  { key:"back", title:"③ 背面觀 Back View", hint:"", items:[
+    { key:"feet_back", label:"雙腳／跟腱", labelEn:"Feet / Achilles Tendon", sides:true, options:["內翻／旋後","外翻／旋前"], optionsEn:["Inverted / Supinated","Everted / Pronated"] },
+    { key:"femur", label:"股骨", labelEn:"Femurs", sides:true, options:["內旋","外旋"], optionsEn:["Medially Rotated","Laterally Rotated"] },
+    { key:"pelvis_back", label:"骨盆", labelEn:"Pelvis", sides:false, options:["右側較高","左側較高","順時針旋轉","逆時針旋轉"], optionsEn:["Elevated Right","Elevated Left","Rotated Clockwise","Rotated Counter-Clockwise"] },
+    { key:"scapula", label:"肩胛骨", labelEn:"Scapulae", sides:true, options:["前引","後縮","上提","下沉","上旋","下旋","翼狀","前傾"], optionsEn:["Protracted","Retracted","Elevated","Depressed","Upwardly Rotated","Downwardly Rotated","Winging","Anteriorly Tipped"] },
+    { key:"humerus", label:"肱骨", labelEn:"Humeri", sides:true, options:["內旋"], optionsEn:["Medially Rotated"] }
+  ]},
+  { key:"rolldown", title:"④ 脊椎動態前捲 Roll Down", hint:"學員前捲動作，最多重複 3 次 Client rolls down; repeat max 3 times", items:[] }
+];
+
+/* ===================== 全域狀態 Global state ===================== */
+var currentStudent = null;
+var studentsCache = [];
+var assessState = {};
+var programState = { items: [], notes: "" };
+var exUid = 0;
+
+/* ===================== 畫面切換 Screen navigation ===================== */
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  document.getElementById('backBtn').style.display = (id==='screenList') ? 'none' : 'inline-block';
+  var titles = {
+    screenList: '學員體態訓練紀錄<span class="en">Student Postural &amp; Programming Log</span>',
+    screenDetail: (currentStudent||'')+'<span class="en">Student Detail</span>',
+    screenAssessment: '體態評估<span class="en">Postural Assessment</span>',
+    screenAddEntry: '新增紀錄<span class="en">Add Entry</span>'
+  };
+  document.getElementById('headerTitle').innerHTML = titles[id] || '';
+}
+function goToList(){ showScreen('screenList'); loadStudents(); }
+function goToDetail(){ showScreen('screenDetail'); loadStudentDetail(currentStudent); }
+function openStudent(name){ currentStudent = name; showScreen('screenDetail'); loadStudentDetail(name); }
+function handleRefresh(){
+  var active = document.querySelector('.screen.active').id;
+  if (active === 'screenList') loadStudents();
+  else if (active === 'screenDetail') loadStudentDetail(currentStudent);
+}
+
+/* ===================== API helpers ===================== */
+function apiGet(params){
+  var qs = Object.keys(params).map(function(k){ return k+'='+encodeURIComponent(params[k]); }).join('&');
+  return fetch(APPS_SCRIPT_URL+'?'+qs).then(function(r){ return r.json(); });
+}
+function apiPost(payload){
+  return fetch(APPS_SCRIPT_URL, {
+    method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain'},
+    body: JSON.stringify(payload)
+  });
+}
+
+/* ===================== SCREEN 1: 學員列表 ===================== */
+function loadStudents(){
+  document.getElementById('studentListRoot').innerHTML = '<div class="loading">載入中... Loading...</div>';
+  apiGet({ action:'students' }).then(function(res){
+    studentsCache = res.students || [];
+    renderStudentList();
+  }).catch(function(){
+    document.getElementById('studentListRoot').innerHTML = '<div class="empty-state">讀取失敗，請檢查連線<span class="en">Failed to load — check connection</span></div>';
+  });
+}
+function renderStudentList(){
+  var q = document.getElementById('searchInput').value.trim().toLowerCase();
+  var root = document.getElementById('studentListRoot');
+  var list = studentsCache.filter(function(s){ return !q || s.name.toLowerCase().indexOf(q)>-1; });
+  if (!list.length){
+    root.innerHTML = '<div class="empty-state">目前沒有學員資料，點右上角「＋新增」開始<span class="en">No students yet — tap “+ Add” to start</span></div>';
+    return;
+  }
+  root.innerHTML = list.map(function(s){
+    return '<div class="student-card" onclick="openStudent(\''+s.name.replace(/'/g,"\\'")+'\')">'+
+      '<div><div class="name">'+s.name+'</div>'+(s.createdAt?'<div class="meta">建立於 '+fmtDate(s.createdAt)+'</div>':'')+'</div>'+
+      '<div class="chev">›</div></div>';
+  }).join('');
+}
+function promptAddStudent(){
+  var name = prompt('新增學員姓名\nAdd student name:');
+  if (!name) return;
+  name = name.trim();
+  if (!name) return;
+  apiPost({ action:'addStudent', name:name }).then(function(){
+    showToast('已新增「'+name+'」<br><span style="opacity:.75;font-size:11px">Added '+name+'</span>');
+    setTimeout(loadStudents, 400);
+  });
+}
+function fmtDate(v){
+  try{ var d = new Date(v); if (isNaN(d)) return v; return d.toISOString().slice(0,10); }catch(e){ return v; }
+}
+
+/* ===================== SCREEN 2: 學員詳情 ===================== */
+function loadStudentDetail(name){
+  document.getElementById('detailName').textContent = name;
+  document.getElementById('assessBlockBody').innerHTML = '<div class="loading">載入中... Loading...</div>';
+  document.getElementById('historyBlockBody').innerHTML = '<div class="loading">載入中... Loading...</div>';
+  apiGet({ action:'studentData', name:name }).then(function(res){
+    renderAssessBlock(res.assessment);
+    renderHistoryBlock(res.programHistory || []);
+  }).catch(function(){
+    document.getElementById('assessBlockBody').innerHTML = '<div class="empty-state">讀取失敗<span class="en">Failed to load</span></div>';
+    document.getElementById('historyBlockBody').innerHTML = '';
+  });
+}
+function renderAssessBlock(a){
+  var body = document.getElementById('assessBlockBody');
+  if (!a){
+    body.innerHTML = '<span class="status-pill pending">尚未評估 Not yet assessed</span>'+
+      '<div style="margin-top:10px;"><button class="btn btn-dark" onclick="openAssessment()">開始評估<span class="en">Start Assessment</span></button></div>';
+    return;
+  }
+  body.innerHTML = '<span class="status-pill done">已完成 Completed</span>'+
+    '<div class="assess-date">評估日期 '+a.date+'</div>'+
+    '<div class="assess-summary">'+escapeHtml(a.summary)+'</div>'+
+    '<div style="margin-top:10px;"><button class="btn btn-outline" onclick="openAssessment()">重新評估<span class="en">Redo Assessment</span></button></div>';
+}
+function renderHistoryBlock(list){
+  var body = document.getElementById('historyBlockBody');
+  if (!list.length){
+    body.innerHTML = '<div class="empty-state">尚無訓練紀錄<span class="en">No programming entries yet</span></div>';
+    return;
+  }
+  body.innerHTML = list.map(function(it){
+    return '<div class="history-item"><div class="hdate">'+it.date+(it.examiner?'　'+escapeHtml(it.examiner):'')+'</div>'+
+      '<div class="hsummary">'+escapeHtml(it.summary)+'</div>'+
+      (it.notes ? '<div class="hnotes">📝 '+escapeHtml(it.notes)+'</div>' : '')+
+      '</div>';
+  }).join('');
+}
+function escapeHtml(s){
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* ===================== SCREEN 3: 體態評估表單 ===================== */
+function openAssessment(){
+  document.getElementById('assessForName').textContent = currentStudent;
+  document.getElementById('aDate').value = new Date().toISOString().slice(0,10);
+  document.getElementById('aExaminer').value = '';
+  assessState = {};
+  renderSections();
+  showScreen('screenAssessment');
+}
+function chipHtml(itemKey, side, opt, optEn){
+  var id = itemKey+"|"+(side||"-")+"|"+opt;
+  return '<div class="chip" data-id="'+id+'" onclick="toggleChip(this,\''+itemKey+'\',\''+(side||"")+'\',\''+opt.replace(/'/g,"\\'")+'\')">'+opt+'<span class="en">'+optEn+'</span></div>';
+}
+function renderSections(){
+  var root = document.getElementById('sectionsRoot');
+  var html = '';
+  SECTIONS.forEach(function(sec){
+    html += '<details class="section" open><summary>'+sec.title+'<span class="arrow">▶</span></summary><div class="section-body">';
+    if (sec.hint) html += '<div class="section-hint">'+sec.hint+'</div>';
+    sec.items.forEach(function(item){
+      assessState[item.key] = item.sides ? {R:[],L:[]} : [];
+      html += '<div class="item"><div class="item-label">'+item.label+'<span class="en">'+item.labelEn+'</span></div>';
+      if (item.sides){
+        html += '<div class="side-row"><div class="side-tag">R</div><div class="chips">';
+        item.options.forEach(function(o,i){ html += chipHtml(item.key,'R',o,item.optionsEn[i]); });
+        html += '</div></div>';
+        html += '<div class="side-row"><div class="side-tag">L</div><div class="chips">';
+        item.options.forEach(function(o,i){ html += chipHtml(item.key,'L',o,item.optionsEn[i]); });
+        html += '</div></div>';
+      } else {
+        html += '<div class="side-row"><div class="chips">';
+        item.options.forEach(function(o,i){ html += chipHtml(item.key,'',o,item.optionsEn[i]); });
+        html += '</div></div>';
+      }
+      html += '</div>';
+    });
+    if (sec.key === 'rolldown'){
+      assessState['flatAreas'] = { yn:'', note:'' };
+      assessState['imbalance'] = { yn:'', note:'' };
+      html += rollDownHtml();
+    }
+    html += '</div></details>';
+  });
+  root.innerHTML = html;
+}
+function rollDownHtml(){
+  var h = '';
+  h += '<div class="item"><div class="item-label">觀察（站側面）：是否有僵硬平坦區域？<span class="en">Look (from side): Any flat/rigid areas?</span></div>';
+  h += '<div class="side-row"><div class="chips">'+ynChip('flatAreas','是','Yes')+ynChip('flatAreas','否','No')+'</div></div>';
+  h += '<div class="textline"><input type="text" placeholder="位置說明（選填） Location notes (optional)" oninput="assessState.flatAreas.note=this.value"></div></div>';
+  h += '<div class="item"><div class="item-label">觸診（站背後，最後一次）：兩側張力是否有失衡？<span class="en">Palpate (from behind, last rep): Any asymmetry in tension?</span></div>';
+  h += '<div class="side-row"><div class="chips">'+ynChip('imbalance','是','Yes')+ynChip('imbalance','否','No')+'</div></div>';
+  h += '<div class="textline"><input type="text" placeholder="位置說明（選填） Location notes (optional)" oninput="assessState.imbalance.note=this.value"></div></div>';
+  return h;
+}
+function ynChip(key,val,valEn){
+  return '<div class="chip" data-id="'+key+'|yn|'+val+'" onclick="toggleYN(this,\''+key+'\',\''+val+'\')">'+val+'<span class="en">'+valEn+'</span></div>';
+}
+function toggleYN(el,key,val){
+  var group = document.querySelectorAll('[data-id^="'+key+'|yn|"]');
+  group.forEach(function(g){ g.classList.remove('on'); });
+  if (assessState[key].yn === val){ assessState[key].yn=''; }
+  else { assessState[key].yn = val; el.classList.add('on'); }
+}
+function toggleChip(el, itemKey, side, opt){
+  el.classList.toggle('on');
+  var arr = side ? assessState[itemKey][side] : assessState[itemKey];
+  var idx = arr.indexOf(opt);
+  if (idx>-1) arr.splice(idx,1); else arr.push(opt);
+}
+function buildAssessSummaryAndFull(){
+  var lines = []; var full = {};
+  SECTIONS.forEach(function(sec){
+    sec.items.forEach(function(item){
+      var v = assessState[item.key];
+      full[item.key] = v;
+      if (item.sides){
+        if (v.R.length) lines.push(sec.title.replace(/^[①-④]\s*/,'')+' - '+item.label+'/'+item.labelEn+'(R)：'+v.R.join('、'));
+        if (v.L.length) lines.push(sec.title.replace(/^[①-④]\s*/,'')+' - '+item.label+'/'+item.labelEn+'(L)：'+v.L.join('、'));
+      } else {
+        if (v.length) lines.push(sec.title.replace(/^[①-④]\s*/,'')+' - '+item.label+'/'+item.labelEn+'：'+v.join('、'));
+      }
+    });
+  });
+  full.flatAreas = assessState.flatAreas; full.imbalance = assessState.imbalance;
+  if (assessState.flatAreas.yn) lines.push('脊椎前捲 Roll Down - 平坦區 Flat areas：'+assessState.flatAreas.yn+(assessState.flatAreas.note?'（'+assessState.flatAreas.note+'）':''));
+  if (assessState.imbalance.yn) lines.push('脊椎前捲 Roll Down - 兩側失衡 Asymmetry：'+assessState.imbalance.yn+(assessState.imbalance.note?'（'+assessState.imbalance.note+'）':''));
+  return { summary: lines.length ? lines.join('\n') : '（本次評估無標記異常項目 No abnormal findings flagged）', full: full };
+}
+function submitAssessment(){
+  if (checkNotConfigured()) return;
+  var date = document.getElementById('aDate').value || new Date().toISOString().slice(0,10);
+  var examiner = document.getElementById('aExaminer').value.trim();
+  var sf = buildAssessSummaryAndFull();
+  var btn = document.getElementById('assessSubmitBtn');
+  btn.disabled = true; btn.innerHTML = '送出中...<span class="en">Submitting...</span>';
+  apiPost({ action:'appendRow', sheetName:'體態評估', header:ASSESS_HEADER, row:[new Date(), currentStudent, date, examiner, sf.summary, JSON.stringify(sf.full)] })
+    .then(function(){
+      showToast('已送出體態評估<br><span style="opacity:.75;font-size:11px">Assessment submitted</span>');
+      btn.disabled = false; btn.innerHTML = '送出評估<span class="en">Submit Assessment</span>';
+      setTimeout(goToDetail, 400);
+    }).catch(function(){
+      showToast('送出失敗，請確認網路連線<br><span style="opacity:.75;font-size:11px">Failed — check connection</span>');
+      btn.disabled = false; btn.innerHTML = '送出評估<span class="en">Submit Assessment</span>';
+    });
+}
+
+/* ===================== SCREEN 4: 新增本次紀錄 ===================== */
+function openAddEntry(){
+  document.getElementById('entryForName').textContent = currentStudent;
+  document.getElementById('eDate').value = new Date().toISOString().slice(0,10);
+  document.getElementById('eExaminer').value = '';
+  document.getElementById('programNotes').value = '';
+  programState = { items: [], notes: "" };
+  renderExercises();
+  showScreen('screenAddEntry');
+}
+function addExercise(){
+  programState.items.push({ uid:(exUid++), name:"", apparatus:APPARATUS_OPTIONS[0].v, sets:"", reps:"" });
+  renderExercises();
+}
+function removeExercise(uid){
+  programState.items = programState.items.filter(function(it){ return it.uid!==uid; });
+  renderExercises();
+}
+function updateExercise(uid, field, value){
+  var it = programState.items.filter(function(i){ return i.uid===uid; })[0];
+  if (it) it[field] = value;
+}
+function apparatusOptionsHtml(selected){
+  return APPARATUS_OPTIONS.map(function(o){ return '<option value="'+o.v+'"'+(o.v===selected?' selected':'')+'>'+o.v+'</option>'; }).join('');
+}
+function renderExercises(){
+  var root = document.getElementById('exListRoot');
+  if (!programState.items.length){
+    root.innerHTML = '<div class="empty-ex">尚未新增動作　No exercises added yet</div>';
+    return;
+  }
+  var html = '';
+  programState.items.forEach(function(it, idx){
+    html += '<div class="ex-card"><span class="ex-num">#'+(idx+1)+'</span>';
+    html += '<div class="ex-row"><div class="ex-field" style="flex:2"><label>動作名稱 <span class="en">Exercise Name</span></label>';
+    html += '<input type="text" value="'+escapeAttr(it.name)+'" placeholder="例如 Pelvic Curl / Footwork" oninput="updateExercise('+it.uid+',\'name\',this.value)"></div></div>';
+    html += '<div class="ex-row"><div class="ex-field"><label>器械 <span class="en">Apparatus</span></label><select onchange="updateExercise('+it.uid+',\'apparatus\',this.value)">'+apparatusOptionsHtml(it.apparatus)+'</select></div></div>';
+    html += '<div class="ex-row">';
+    html += '<div class="ex-field"><label>組數 <span class="en">Sets</span></label><input type="text" value="'+escapeAttr(it.sets)+'" placeholder="例 2" oninput="updateExercise('+it.uid+',\'sets\',this.value)"></div>';
+    html += '<div class="ex-field"><label>次數／秒數 <span class="en">Reps / Time</span></label><input type="text" value="'+escapeAttr(it.reps)+'" placeholder="例 8-10 或 30秒" oninput="updateExercise('+it.uid+',\'reps\',this.value)"></div>';
+    html += '</div>';
+    html += '<button type="button" class="ex-remove" onclick="removeExercise('+it.uid+')">－ 移除 Remove</button>';
+    html += '</div>';
+  });
+  root.innerHTML = html;
+}
+function escapeAttr(s){ return (s||"").replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+function buildProgramSummary(){
+  var lines = programState.items.map(function(it,idx){
+    return (idx+1)+'. '+(it.name||'（未命名 Unnamed）')+'｜'+it.apparatus+'｜'+(it.sets||'-')+'組 x '+(it.reps||'-');
+  });
+  return lines.length ? lines.join('\n') : '（本次未安排動作 No exercises assigned）';
+}
+function submitEntry(){
+  if (checkNotConfigured()) return;
+  var date = document.getElementById('eDate').value || new Date().toISOString().slice(0,10);
+  var examiner = document.getElementById('eExaminer').value.trim();
+  var summary = buildProgramSummary();
+  var btn = document.getElementById('entrySubmitBtn');
+  btn.disabled = true; btn.innerHTML = '送出中...<span class="en">Submitting...</span>';
+  apiPost({ action:'appendRow', sheetName:'訓練計畫', header:PROGRAM_HEADER, row:[new Date(), currentStudent, date, examiner, summary, JSON.stringify(programState.items), programState.notes] })
+    .then(function(){
+      showToast('已送出本次訓練紀錄<br><span style="opacity:.75;font-size:11px">Entry submitted</span>');
+      btn.disabled = false; btn.innerHTML = '送出紀錄<span class="en">Submit Entry</span>';
+      setTimeout(goToDetail, 400);
+    }).catch(function(){
+      showToast('送出失敗，請確認網路連線<br><span style="opacity:.75;font-size:11px">Failed — check connection</span>');
+      btn.disabled = false; btn.innerHTML = '送出紀錄<span class="en">Submit Entry</span>';
+    });
+}
+
+/* ===================== 共用 Shared ===================== */
+function checkNotConfigured(){
+  if (APPS_SCRIPT_URL.indexOf('__') === 0){
+    showToast('尚未設定連線，請聯絡管理者<br><span style="opacity:.75;font-size:11px">Not configured — contact admin</span>');
+    return true;
+  }
+  return false;
+}
+function showToast(msg){
+  var t = document.getElementById('toast');
+  t.innerHTML = msg; t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 2800);
+}
+
+/* ===================== Init ===================== */
+if (APPS_SCRIPT_URL.indexOf('__') === 0){
+  document.getElementById('configWarning').style.display = 'block';
+} else {
+  loadStudents();
+}
+</script>
+</body>
+</html>
