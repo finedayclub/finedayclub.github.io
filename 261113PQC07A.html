@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>峴港・奢華海灣與古鎮慢活七日提案</title>
+<style>
+  :root {
+    --navy: #052937;
+    --gold: #B8975A;
+    --card-border: #E2D9C8;
+    --card-header-bg: #FDFAF4;
+    --text-main: #2E2A24;
+    --text-muted: #5C5346;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: 'Noto Sans CJK TC', 'Noto Sans TC', sans-serif;
+    color: var(--text-main);
+    background: #FAF7F2;
+    font-size: 16px;
+    line-height: 1.6;
+    padding-bottom: 96px;
+  }
+  .cover {
+    background: linear-gradient(160deg, var(--navy), #0A3B4E);
+    color: #fff;
+    padding: 44px 24px 36px;
+    text-align: center;
+  }
+  .cover-title { font-size: 24px; font-weight: 700; letter-spacing: .02em; margin-bottom: 8px; }
+  .cover-subtitle { font-size: 13px; letter-spacing: .12em; color: var(--gold); text-transform: uppercase; margin-bottom: 20px; }
+  .cover-meta { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; font-size: 13px; }
+  .cover-meta-item { opacity: .92; }
+  .cover-meta-label { display:block; font-size: 11px; color: var(--gold); margin-bottom: 3px; letter-spacing:.06em; }
+  .intro-note {
+    max-width: 720px; margin: -18px auto 20px; background: #fff;
+    border: 1px solid var(--card-border); border-radius: 12px;
+    padding: 16px 20px; font-size: 13.5px; color: var(--text-muted);
+    box-shadow: 0 4px 16px rgba(5,41,55,.08);
+  }
+  .intro-note b { color: var(--text-main); }
+  .content { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+  .city-header {
+    background: var(--navy); color: #fff; border-radius: 12px;
+    padding: 16px 20px; margin: 22px 0 12px; text-align: center;
+  }
+  .city-header-en { font-size: 11px; letter-spacing: .16em; color: var(--gold); }
+  .city-header-zh { font-size: 20px; font-weight: 700; margin: 2px 0; }
+  .city-header-dates { font-size: 12px; opacity: .85; }
+  .day-card {
+    background: #fff; border: 1px solid var(--card-border); border-radius: 12px;
+    margin-bottom: 14px; overflow: hidden;
+  }
+  .day-card-header {
+    background: var(--card-header-bg); padding: 12px 18px;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .day-badge {
+    background: var(--navy); color: #fff; font-size: 11px; font-weight: 700;
+    padding: 3px 10px; border-radius: 999px; letter-spacing: .04em;
+  }
+  .day-date { font-size: 13px; color: var(--text-muted); font-weight: 600; }
+  .day-theme { font-size: 13.5px; color: var(--text-main); font-weight: 600; }
+  .event-list { padding: 6px 18px 14px; }
+  .event-row { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px dashed #EDE6D8; }
+  .event-row:last-child { border-bottom: none; }
+  .event-time { flex: 0 0 52px; font-size: 12.5px; color: var(--text-muted); font-weight: 700; padding-top: 2px; }
+  .event-main { flex: 1; min-width: 0; }
+  .event-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+  .tag-pill { font-size: 11px; font-weight: 700; padding: 2px 10px; border-radius: 999px; letter-spacing: .02em; }
+  .event-title { font-size: 15px; font-weight: 700; }
+  .event-desc { font-size: 13.5px; color: var(--text-muted); margin-top: 2px; }
+  .event-note { font-size: 12.5px; color: #8F7A1E; background: rgba(184,151,90,.1); border-radius: 6px; padding: 6px 10px; margin-top: 6px; }
+  .feedback-btn {
+    margin-top: 8px; font-size: 12.5px; font-weight: 700; color: var(--navy);
+    background: #fff; border: 1.3px solid var(--card-border); border-radius: 999px;
+    padding: 6px 14px; cursor: pointer;
+  }
+  .feedback-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .feedback-badge {
+    margin-top: 8px; background: rgba(184,151,90,.1); border: 1px solid var(--gold);
+    border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: var(--text-main);
+    display: flex; align-items: flex-start; gap: 8px; flex-wrap: wrap;
+  }
+  .badge-text { flex: 1; min-width: 120px; white-space: pre-wrap; }
+  .badge-edit, .badge-remove {
+    font-size: 11.5px; border: none; background: none; cursor: pointer; font-weight: 700;
+  }
+  .badge-edit { color: var(--navy); }
+  .badge-remove { color: #B04438; }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(5,41,55,.55);
+    display: none; align-items: center; justify-content: center; z-index: 2000; padding: 20px;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal-box {
+    background: #fff; border-radius: 14px; padding: 22px; max-width: 440px; width: 100%;
+    max-height: 86vh; overflow-y: auto;
+  }
+  .modal-box h3 { font-size: 16px; margin-bottom: 4px; }
+  .modal-box .modal-sub { font-size: 12.5px; color: var(--text-muted); margin-bottom: 14px; }
+  .modal-box textarea {
+    width: 100%; min-height: 100px; border: 1px solid var(--card-border); border-radius: 8px;
+    padding: 10px 12px; font-size: 14px; font-family: inherit; resize: vertical;
+  }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px; }
+  .btn {
+    border: none; border-radius: 999px; padding: 9px 20px; font-size: 13.5px; font-weight: 700;
+    cursor: pointer; font-family: inherit;
+  }
+  .btn-primary { background: var(--navy); color: #fff; }
+  .btn-secondary { background: #EFEAE0; color: var(--text-main); }
+  .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+  .summary-item { font-size: 13px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #EDE6D8; }
+  .summary-day { font-weight: 700; color: var(--navy); font-size: 12px; }
+  .summary-title { font-weight: 600; margin: 2px 0; }
+  .summary-comment { color: var(--text-muted); white-space: pre-wrap; }
+
+  /* Bottom bar */
+  .bottom-bar {
+    position: fixed; bottom: 0; left: 0; right: 0; background: #fff;
+    border-top: 1px solid var(--card-border); padding: 12px 18px;
+    display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 -4px 16px rgba(5,41,55,.08); z-index: 1500;
+  }
+  .bottom-bar-count { font-size: 13px; color: var(--text-muted); }
+  .bottom-bar-count b { color: var(--navy); }
+  .footer-note { text-align: center; font-size: 11.5px; color: var(--text-muted); padding: 24px 16px 12px; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-title">峴港・奢華海灣與古鎮慢活七日提案</div>
+  <div class="cover-subtitle">DANANG · LANG CO · 王鈺叡先生</div>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><span class="cover-meta-label">出發</span>11/13</div>
+    <div class="cover-meta-item"><span class="cover-meta-label">回程</span>11/19</div>
+    <div class="cover-meta-item"><span class="cover-meta-label">天數</span>7 天 6 夜</div>
+    <div class="cover-meta-item"><span class="cover-meta-label">人數</span>7 位貴賓（5 大 2 小・家族同行）</div>
+  </div>
+</div>
+
+<div class="intro-note">
+  這是為您規劃的行程提案，歡迎您先瀏覽一遍。若對某個安排有想法或希望調整，請點選該行程旁的
+  <b>「✏️ 提出修改建議」</b>寫下您的意見；填寫完成後，於頁面下方點擊<b>「送出意見」</b>即可，
+  我們的專屬顧問將會盡快與您確認調整內容。
+</div>
+
+<div class="content">
+  
+    <div class="city-header">
+      <div class="city-header-en">LANG CO</div>
+      <div class="city-header-zh">蘭珂灣</div>
+      <div class="city-header-dates">11/13 – 11/14（共 2 晚）</div>
+    </div>
+    
+      <div class="day-card">
+        <div class="day-card-header">
+          <span class="day-date">11/13 週五</span>
+          <span class="day-badge">DAY 1</span>
+          <span class="day-theme">抵達峴港・專車北上蘭珂悅樁・海灣夕陽</span>
+        </div>
+        <div class="event-list">
+        <div class="event-row" id="ev1" data-day="DAY 1（11/13 週五）" data-title="峴港機場專車接送・前往蘭珂悅樁">
+          <div class="event-time">下午</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#E3EEF9;color:#3A6B99">交通</span>
+              <span class="event-title">峴港機場專車接送・前往蘭珂悅樁</span>
+            </div>
+            <div class="event-desc">班機抵達峴港國際機場，專屬商務專車（備妥幼兒安全座椅）直達 Angsana Lang Co 度假村。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev1')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev1" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev1')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev1')">移除</button>
+            </div>
+          </div>
+        </div>
+        <div class="event-row" id="ev2" data-day="DAY 1（11/13 週五）" data-title="入住 Angsana Lang Co 多臥室泳池 Villa">
+          <div class="event-time">下午</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#E4F3E5;color:#3A7A46">住宿</span>
+              <span class="event-title">入住 Angsana Lang Co 多臥室泳池 Villa</span>
+            </div>
+            <div class="event-desc">辦理入住安頓行李，熟悉 Villa 私人泳池與度假村環境，稍作休息放鬆舟車勞頓。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev2')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev2" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev2')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev2')">移除</button>
+            </div>
+          </div>
+        </div>
+        <div class="event-row" id="ev3" data-day="DAY 1（11/13 週五）" data-title="私人海灘漫步玩沙・海灣夕陽">
+          <div class="event-time">傍晚</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#FBF3CF;color:#8F7A1E">景點</span>
+              <span class="event-title">私人海灘漫步玩沙・海灣夕陽</span>
+            </div>
+            <div class="event-desc">漫步度假村私人沙灘，享受乾淨細緻白沙與平緩浪花，雙寶開心玩沙戲水，欣賞黃昏落日。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev3')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev3" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev3')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev3')">移除</button>
+            </div>
+          </div>
+        </div>
+        <div class="event-row" id="ev4" data-day="DAY 1（11/13 週五）" data-title="度假村海景餐廳精緻晚宴">
+          <div class="event-time">晚上</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#FBE7EC;color:#A84A62">餐食</span>
+              <span class="event-title">度假村海景餐廳精緻晚宴</span>
+            </div>
+            <div class="event-desc">於度假村內景觀餐廳享用洗塵晚宴，品嚐精緻越式海鮮美饌，早些休息養精蓄銳。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev4')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev4" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev4')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev4')">移除</button>
+            </div>
+          </div>
+        </div></div>
+      </div>
+      <div class="day-card">
+        <div class="day-card-header">
+          <span class="day-date">11/14 週六</span>
+          <span class="day-badge">DAY 2</span>
+          <span class="day-theme">蘭珂悅樁全日度假・兒童俱樂部・星空海陸 BBQ</span>
+        </div>
+        <div class="event-list">
+        <div class="event-row" id="ev5" data-day="DAY 2（11/14 週六）" data-title="水上活動中心・兒童俱樂部放電">
+          <div class="event-time">上午</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#FBE3E0;color:#B04438">活動</span>
+              <span class="event-title">水上活動中心・兒童俱樂部放電</span>
+            </div>
+            <div class="event-desc">小五學童體驗平靜海灣立槳或皮划艇；幼兒於 Kids Club 體驗手作遊戲或於幼兒泳池戲水。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev5')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev5" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev5')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev5')">移除</button>
+            </div>
+          </div>
+        </div>
+        <div class="event-row" id="ev6" data-day="DAY 2（11/14 週六）" data-title="池畔精緻輕食午餐">
+          <div class="event-time">中午</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#FBE7EC;color:#A84A62">餐食</span>
+              <span class="event-title">池畔精緻輕食午餐</span>
+            </div>
+            <div class="event-desc">於度假村池畔或海灘吧享用清爽熱帶風味輕食與現打果汁，步調悠閒自在。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev6')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev6" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev6')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev6')">移除</button>
+            </div>
+          </div>
+        </div>
+        <div class="event-row" id="ev7" data-day="DAY 2（11/14 週六）" data-title="頂級水療 SPA 體驗・避暑午休">
+          <div class="event-time">午後</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#FBE3E0;color:#B04438">活動</span>
+              <span class="event-title">頂級水療 SPA 體驗・避暑午休</span>
+            </div>
+            <div class="event-desc">大人預約悅榕莊／悅樁世界級頂級 SPA 水療舒壓；幼兒於涼爽 Villa 舒適午休避開豔陽。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev7')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev7" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev7')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev7')">移除</button>
+            </div>
+          </div>
+        </div>
+        <div class="event-row" id="ev8" data-day="DAY 2（11/14 週六）" data-title="Villa 私人泳池悠閒戲水時光">
+          <div class="event-time">傍晚</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#EDEDED;color:#6B6B6B">自由</span>
+              <span class="event-title">Villa 私人泳池悠閒戲水時光</span>
+            </div>
+            <div class="event-desc">全家人齊聚 Villa 私人泳池與庭院花園，享受不被外界打擾的溫馨天倫時光。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev8')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev8" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev8')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev8')">移除</button>
+            </div>
+          </div>
+        </div>
+        <div class="event-row" id="ev9" data-day="DAY 2（11/14 週六）" data-title="主廚專屬露台星空海陸 BBQ">
+          <div class="event-time">晚上</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#FBE7EC;color:#A84A62">餐食</span>
+              <span class="event-title">主廚專屬露台星空海陸 BBQ</span>
+            </div>
+            <div class="event-desc">專屬主廚進駐 Villa 露台現烤頂級海鮮與優質牛排，伴隨星空海風享用尊榮晚宴。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev9')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev9" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev9')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev9')">移除</button>
+            </div>
+          </div>
+        </div></div>
+      </div>
+    <div class="city-header">
+      <div class="city-header-en">DANANG</div>
+      <div class="city-header-zh">峴港市區</div>
+      <div class="city-header-dates">11/15 – 11/19（共 4 晚）</div>
+    </div>
+    
+      <div class="day-card">
+        <div class="day-card-header">
+          <span class="day-date">11/15 週日</span>
+          <span class="day-badge">DAY 3</span>
+          <span class="day-theme">巴拿山佛手金橋・太陽世界・入住市區飯店</span>
+        </div>
+        <div class="event-list">
+        <div class="event-row" id="ev10" data-day="DAY 3（11/15 週日）" data-title="退房 Angsana Lang Co">
+          <div class="event-time">上午</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#E4F3E5;color:#3A7A46">住宿</span>
+              <span class="event-title">退房 Angsana Lang Co</span>
+            </div>
+            <div class="event-desc">賦別蘭珂灣的靜謐時光，專車前往巴拿山，展開行程後半段的市區探索。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev10')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev10" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev10')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev10')">移除</button>
+            </div>
+          </div>
+        </div>
+        <div class="event-row" id="ev11" data-day="DAY 3（11/15 週日）" data-title="巴拿山平穩登山纜車・黃金佛手橋">
+          <div class="event-time">上午</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#FBF3CF;color:#8F7A1E">景點</span>
+              <span class="event-title">巴拿山平穩登山纜車・黃金佛手橋</span>
+            </div>
+            <div class="event-desc">搭乘大型封閉平穩纜車登頂，漫步巨手托起之黃金佛手橋拍照留念。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev11')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev11" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev11')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev11')">移除</button>
+            </div>
+          </div>
+        </div>
+        <div class="event-row" id="ev12" data-day="DAY 3（11/15 週日）" data-title="室內遊樂園 Fantasy Park・涼爽避暑">
+          <div class="event-time">午後</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#FBE3E0;color:#B04438">活動</span>
+              <span class="event-title">室內遊樂園 Fantasy Park・涼爽避暑</span>
+            </div>
+            <div class="event-desc">走訪全室內空調遊樂園，大童暢玩各項設施，推車動線平坦友善，避開戶外曝曬。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev12')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev12" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev12')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev12')">移除</button>
+            </div>
+          </div>
+        </div>
+        <div class="event-row" id="ev13" data-day="DAY 3（11/15 週日）" data-title="入住 峴港市區精選五星飯店">
+          <div class="event-time">傍晚</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#E4F3E5;color:#3A7A46">住宿</span>
+              <span class="event-title">入住 峴港市區精選五星飯店</span>
+            </div>
+            <div class="event-desc">下山後專車前往峴港市區精選五星飯店辦理入住，展開後段市區慢活時光。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev13')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev13" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev13')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev13')">移除</button>
+            </div>
+          </div>
+        </div>
+        <div class="event-row" id="ev14" data-day="DAY 3（11/15 週日）" data-title="市區景觀晚宴">
+          <div class="event-time">晚上</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#FBE7EC;color:#A84A62">餐食</span>
+              <span class="event-title">市區景觀晚宴</span>
+            </div>
+            <div class="event-desc">晚間於市區享用精緻越式海鮮料理。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev14')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev14" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev14')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev14')">移除</button>
+            </div>
+          </div>
+        </div></div>
+      </div>
+      <div class="day-card">
+        <div class="day-card-header">
+          <span class="day-date">11/16 週一</span>
+          <span class="day-badge">DAY 4</span>
+          <span class="day-theme">迦南島簸箕船・會安古鎮漫步・秋盆河水燈祈福</span>
+        </div>
+        <div class="event-list">
+        <div class="event-row" id="ev15" data-day="DAY 4（11/16 週一）" data-title="迦南島水椰林特色木桶船體驗">
+          <div class="event-time">上午</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#FBE3E0;color:#B04438">活動</span>
+              <span class="event-title">迦南島水椰林特色木桶船體驗</span>
+            </div>
+            <div class="event-desc">搭乘傳統圓形簸箕船穿越水椰林綠蔭水道，航程平穩溫和，避開劇烈旋轉，適合幼兒長輩。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev15')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev15" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev15')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev15')">移除</button>
+            </div>
+          </div>
+        </div>
+        <div class="event-row" id="ev16" data-day="DAY 4（11/16 週一）" data-title="會安古鎮無車區漫步・秋盆河放水燈">
+          <div class="event-time">午後</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#FBF3CF;color:#8F7A1E">景點</span>
+              <span class="event-title">會安古鎮無車區漫步・秋盆河放水燈</span>
+            </div>
+            <div class="event-desc">午後避暑休息後前往會安古鎮，漫步行人徒步區欣賞各色燈籠街景，搭乘平穩小船放水燈祈福。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev16')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev16" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev16')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev16')">移除</button>
+            </div>
+          </div>
+        </div></div>
+      </div>
+      <div class="day-card">
+        <div class="day-card-header">
+          <span class="day-date">11/17 週二</span>
+          <span class="day-badge">DAY 5</span>
+          <span class="day-theme">峴港地標巡禮・韓市場伴手禮採買・山茶半島</span>
+        </div>
+        <div class="event-list">
+        <div class="event-row" id="ev17" data-day="DAY 5（11/17 週二）" data-title="粉紅大教堂・韓市場特產採買">
+          <div class="event-time">上午</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#FBF3CF;color:#8F7A1E">景點</span>
+              <span class="event-title">粉紅大教堂・韓市場特產採買</span>
+            </div>
+            <div class="event-desc">走訪市中心知名地標粉紅大教堂拍照，前往熱鬧韓市場選購在地腰果、咖啡豆與手工紀念品。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev17')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev17" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev17')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev17')">移除</button>
+            </div>
+          </div>
+        </div>
+        <div class="event-row" id="ev18" data-day="DAY 5（11/17 週二）" data-title="市區道地越式特色午宴">
+          <div class="event-time">中午</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#FBE7EC;color:#A84A62">餐食</span>
+              <span class="event-title">市區道地越式特色午宴</span>
+            </div>
+            <div class="event-desc">品嚐經典鮮牛肉河粉、酥脆煎餅與越式米紙捲，體驗道地越式清新風味。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev18')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev18" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev18')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev18')">移除</button>
+            </div>
+          </div>
+        </div>
+        <div class="event-row" id="ev19" data-day="DAY 5（11/17 週二）" data-title="飯店涼爽午休避暑・無邊際泳池">
+          <div class="event-time">午後</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#EDEDED;color:#6B6B6B">自由</span>
+              <span class="event-title">飯店涼爽午休避暑・無邊際泳池</span>
+            </div>
+            <div class="event-desc">返回飯店享受午休小睡，避開正午酷熱時段；大童可至飯店泳池戲水放電。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev19')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev19" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev19')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev19')">移除</button>
+            </div>
+          </div>
+        </div>
+        <div class="event-row" id="ev20" data-day="DAY 5（11/17 週二）" data-title="山茶半島遠眺海灣全景">
+          <div class="event-time">傍晚</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#FBF3CF;color:#8F7A1E">景點</span>
+              <span class="event-title">山茶半島遠眺海灣全景</span>
+            </div>
+            <div class="event-desc">專車前往山茶半島靈應寺，居高臨下俯瞰壯麗的峴港海灣與綿延美溪沙灘海岸線。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev20')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev20" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev20')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev20')">移除</button>
+            </div>
+          </div>
+        </div>
+        <div class="event-row" id="ev21" data-day="DAY 5（11/17 週二）" data-title="漢江第一排景觀海鮮饗宴">
+          <div class="event-time">18:30</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#FBE7EC;color:#A84A62">餐食</span>
+              <span class="event-title">漢江第一排景觀海鮮饗宴</span>
+            </div>
+            <div class="event-desc">於漢江畔第一排優質景觀餐廳享用現撈活海鮮晚宴，遠眺龍橋璀璨夜景。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev21')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev21" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev21')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev21')">移除</button>
+            </div>
+          </div>
+        </div></div>
+      </div>
+      <div class="day-card">
+        <div class="day-card-header">
+          <span class="day-date">11/18 週三</span>
+          <span class="day-badge">DAY 6</span>
+          <span class="day-theme">美溪沙灘悠閒慢活・包租漢江景觀遊船夜宴</span>
+        </div>
+        <div class="event-list">
+        <div class="event-row" id="ev22" data-day="DAY 6（11/18 週三）" data-title="美溪沙灘晨光漫步・踏浪玩沙">
+          <div class="event-time">上午</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#FBF3CF;color:#8F7A1E">景點</span>
+              <span class="event-title">美溪沙灘晨光漫步・踏浪玩沙</span>
+            </div>
+            <div class="event-desc">漫步名列全球最美沙灘之一的美溪沙灘，椰林樹影、沙質細白平緩，享受無拘無束的海濱晨光。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev22')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev22" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev22')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev22')">移除</button>
+            </div>
+          </div>
+        </div>
+        <div class="event-row" id="ev23" data-day="DAY 6（11/18 週三）" data-title="專屬包租漢江遊船・璀璨夜色晚宴">
+          <div class="event-time">傍晚</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#FBE3E0;color:#B04438">活動</span>
+              <span class="event-title">專屬包租漢江遊船・璀璨夜色晚宴</span>
+            </div>
+            <div class="event-desc">專屬包租平穩舒適景觀遊船巡航漢江，船上享用精緻晚宴，全視角飽覽漢江兩岸橋樑與燈光夜景。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev23')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev23" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev23')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev23')">移除</button>
+            </div>
+          </div>
+        </div></div>
+      </div>
+      <div class="day-card">
+        <div class="day-card-header">
+          <span class="day-date">11/19 週四</span>
+          <span class="day-badge">DAY 7</span>
+          <span class="day-theme">悠閒晨光・市區最後巡禮・專車送機賦歸</span>
+        </div>
+        <div class="event-list">
+        <div class="event-row" id="ev24" data-day="DAY 7（11/19 週四）" data-title="飯店悠閒早餐與整裝退房">
+          <div class="event-time">上午</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#E4F3E5;color:#3A7A46">住宿</span>
+              <span class="event-title">飯店悠閒早餐與整裝退房</span>
+            </div>
+            <div class="event-desc">享用飯店豐富早餐後悠閒整理行李，專車司導協助行李裝載，前往市區做最後巡禮與伴手禮補齊。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev24')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev24" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev24')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev24')">移除</button>
+            </div>
+          </div>
+        </div>
+        <div class="event-row" id="ev25" data-day="DAY 7（11/19 週四）" data-title="峴港國際機場專車送機・平安返台">
+          <div class="event-time">下午</div>
+          <div class="event-main">
+            <div class="event-head">
+              <span class="tag-pill" style="background:#E3EEF9;color:#3A6B99">交通</span>
+              <span class="event-title">峴港國際機場專車送機・平安返台</span>
+            </div>
+            <div class="event-desc">專車直達峴港機場（市區車程約 15-20 分鐘），協助辦理登機與行李托運，滿載美好回憶搭機返台。</div>
+            
+            <button type="button" class="feedback-btn" onclick="openFeedback('ev25')">✏️ 提出修改建議</button>
+            <div class="feedback-badge" id="badge-ev25" style="display:none">
+              <span class="badge-text"></span>
+              <button type="button" class="badge-edit" onclick="openFeedback('ev25')">編輯</button>
+              <button type="button" class="badge-remove" onclick="removeFeedback('ev25')">移除</button>
+            </div>
+          </div>
+        </div></div>
+      </div>
+</div>
+
+<div class="footer-note">FineDayClub 頂級私人客製化旅行顧問｜專屬旅程服務</div>
+
+<div class="bottom-bar">
+  <div class="bottom-bar-count">已填寫 <b id="fbCount">0</b> 則意見</div>
+  <button type="button" class="btn btn-primary" id="submitBtn" disabled onclick="openSummary()">送出意見</button>
+</div>
+
+<!-- Feedback entry modal -->
+<div class="modal-overlay" id="feedbackModal">
+  <div class="modal-box">
+    <h3 id="fbModalTitle">提出修改建議</h3>
+    <div class="modal-sub" id="fbModalSub"></div>
+    <textarea id="fbTextarea" placeholder="例如：這天想改成自由活動、想更換用餐地點……"></textarea>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-secondary" onclick="closeFeedback()">取消</button>
+      <button type="button" class="btn btn-primary" onclick="saveFeedback()">確認加入</button>
+    </div>
+  </div>
+</div>
+
+<!-- Summary / confirm modal -->
+<div class="modal-overlay" id="summaryModal">
+  <div class="modal-box">
+    <h3>確認送出意見</h3>
+    <div class="modal-sub">請確認以下內容，確認無誤後送出給您的專屬顧問。</div>
+    <div id="summaryList"></div>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-secondary" onclick="closeSummary()">再想想</button>
+      <button type="button" class="btn btn-primary" id="confirmSendBtn" onclick="sendFeedback()">確認送出</button>
+    </div>
+  </div>
+</div>
+
+<!-- Thank-you modal -->
+<div class="modal-overlay" id="thanksModal">
+  <div class="modal-box" style="text-align:center">
+    <h3>意見已送出</h3>
+    <div class="modal-sub" style="margin-top:8px">感謝您的寶貴意見，我們的專屬顧問將會盡快與您確認調整內容。</div>
+    <div class="modal-actions" style="justify-content:center">
+      <button type="button" class="btn btn-primary" onclick="closeThanks()">關閉</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxUFs0fc06U6bgMzVPGkSMFLl82G2lvwO7w6Lpe99wqrVPGjNtuHhRUTygNJeyFDVqi_g/exec";
+  var SPREADSHEET_ID = "1djxY_u9GYjIL0TDpFii_SXvZ6js9fafU2soiaRUWYxc";
+  var SHEET_NAME = "\u884c\u7a0b\u610f\u898b\u56de\u994b";
+  var GUEST_NAME = "\u738b\u923a\u53e1\u5148\u751f";
+  var CASE_ID = "\u5cf4\u6e2f\u30fb\u5962\u83ef\u6d77\u7063\u8207\u53e4\u93ae\u6162\u6d3b\u4e03\u65e5\u63d0\u6848";
+
+  var feedback = {}; // eid -> {day, title, comment}
+  var currentEid = null;
+
+  function openFeedback(eid) {
+    currentEid = eid;
+    var row = document.getElementById(eid);
+    var day = row.getAttribute('data-day');
+    var title = row.getAttribute('data-title');
+    document.getElementById('fbModalSub').textContent = day + '｜' + title;
+    document.getElementById('fbTextarea').value = feedback[eid] ? feedback[eid].comment : '';
+    document.getElementById('feedbackModal').classList.add('show');
+  }
+  function closeFeedback() {
+    document.getElementById('feedbackModal').classList.remove('show');
+  }
+  function saveFeedback() {
+    var text = document.getElementById('fbTextarea').value.trim();
+    if (!text) { closeFeedback(); return; }
+    var row = document.getElementById(currentEid);
+    feedback[currentEid] = {
+      day: row.getAttribute('data-day'),
+      title: row.getAttribute('data-title'),
+      comment: text
+    };
+    renderBadge(currentEid);
+    updateCount();
+    closeFeedback();
+  }
+  function removeFeedback(eid) {
+    delete feedback[eid];
+    renderBadge(eid);
+    updateCount();
+  }
+  function renderBadge(eid) {
+    var badge = document.getElementById('badge-' + eid);
+    if (feedback[eid]) {
+      badge.style.display = 'flex';
+      badge.querySelector('.badge-text').textContent = '您的建議：' + feedback[eid].comment;
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+  function updateCount() {
+    var n = Object.keys(feedback).length;
+    document.getElementById('fbCount').textContent = n;
+    document.getElementById('submitBtn').disabled = n === 0;
+  }
+  function openSummary() {
+    var list = document.getElementById('summaryList');
+    list.innerHTML = '';
+    Object.keys(feedback).forEach(function (eid) {
+      var f = feedback[eid];
+      var div = document.createElement('div');
+      div.className = 'summary-item';
+      div.innerHTML = '<div class="summary-day">' + f.day + '</div>' +
+        '<div class="summary-title">' + f.title + '</div>' +
+        '<div class="summary-comment">' + f.comment + '</div>';
+      list.appendChild(div);
+    });
+    document.getElementById('summaryModal').classList.add('show');
+  }
+  function closeSummary() {
+    document.getElementById('summaryModal').classList.remove('show');
+  }
+  function closeThanks() {
+    document.getElementById('thanksModal').classList.remove('show');
+  }
+
+  function sendFeedback() {
+    var btn = document.getElementById('confirmSendBtn');
+    btn.disabled = true;
+    btn.textContent = '送出中…';
+    var selections = Object.keys(feedback).map(function (eid) {
+      var f = feedback[eid];
+      return { day: f.day, meal: f.title, name: f.comment };
+    });
+    var payload = {
+      spreadsheetId: SPREADSHEET_ID,
+      sheetName: SHEET_NAME,
+      caseId: CASE_ID,
+      guestName: GUEST_NAME,
+      selections: selections
+    };
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    }).then(function () {
+      closeSummary();
+      document.getElementById('thanksModal').classList.add('show');
+      btn.disabled = false;
+      btn.textContent = '確認送出';
+    }).catch(function () {
+      btn.disabled = false;
+      btn.textContent = '確認送出';
+      alert('送出時發生問題，請確認網路連線後再試一次。');
+    });
+  }
+</script>
+</body>
+</html>
