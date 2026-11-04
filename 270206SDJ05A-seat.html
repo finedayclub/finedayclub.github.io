@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Susan 小姐家族選位</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600&display=swap">
+<style>
+/* Layout: one narrow column like a boarding pass — header, passenger chips, cabin map, summary, copy. */
+:root{
+  --bg:#F4F2EE; --surface:#FFFFFF; --ink:#1E2A30; --muted:#6C767B; --line:#E2DED6;
+  --navy:#052937; --gold:#B8935A; --goldSoft:#F3E8D6;
+  --seat:#DDEFF2; --seatEdge:#1E7F8E; --seatTxt:#0E4F59;
+  --star:#FFF3D9; --starEdge:#C08A2E;
+  --off:#ECEAE6; --offTxt:#B9B4AC;
+  --pick:#052937; --pickTxt:#FFFFFF;
+  --ok:#2F7A46; --held:#7D8A90; --heldTxt:#FFFFFF; --err:#B04438;
+  --font-display:"Noto Serif TC","Songti TC",serif;
+  --font-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1A1F; --surface:#16242B; --ink:#E8ECEE; --muted:#9AA6AB; --line:#26373F;
+  --navy:#0A3443; --gold:#D3B07A; --goldSoft:#3A3222;
+  --seat:#163E45; --seatEdge:#4FB3C2; --seatTxt:#BFE9EF;
+  --star:#3C3220; --starEdge:#D9A54A;
+  --off:#1D2A30; --offTxt:#46545A;
+  --pick:#D3B07A; --pickTxt:#0F1A1F; --ok:#6FC08A; --held:#55646B; --heldTxt:#E8ECEE; --err:#E07A6E; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1A1F; --surface:#16242B; --ink:#E8ECEE; --muted:#9AA6AB; --line:#26373F;
+  --navy:#0A3443; --gold:#D3B07A; --goldSoft:#3A3222;
+  --seat:#163E45; --seatEdge:#4FB3C2; --seatTxt:#BFE9EF;
+  --star:#3C3220; --starEdge:#D9A54A;
+  --off:#1D2A30; --offTxt:#46545A;
+  --pick:#D3B07A; --pickTxt:#0F1A1F; --ok:#6FC08A; --held:#55646B; --heldTxt:#E8ECEE; --err:#E07A6E; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.6;margin:0}
+.wrap{max-width:560px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px;display:flex;flex-direction:column;gap:18px}
+header.band{background:#052937;color:#fff;margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:28px max(16px,env(safe-area-inset-left,0px)) 24px}
+.brand{font-size:12px;letter-spacing:.28em;color:#D3B07A}
+h1{font-family:var(--font-display);font-weight:600;font-size:26px;margin:6px 0 6px;text-wrap:balance}
+.sub{color:#C9D3D7;font-size:14px;margin:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.howto{display:grid;gap:6px;font-size:14px;color:var(--muted);margin:0;padding-left:20px}
+.howto b{color:var(--ink)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tab{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:10px 12px;text-align:left;cursor:pointer;font:inherit}
+.tab .k{font-size:12px;color:var(--muted);letter-spacing:.06em}
+.tab .v{font-weight:700;font-size:15px}
+.tab .c{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tab[aria-selected="true"]{border-color:var(--navy);box-shadow:inset 0 0 0 1px var(--navy)}
+:root[data-theme="dark"] .tab[aria-selected="true"]{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tab[aria-selected="true"]{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}}
+.sectionLabel{font-size:12px;letter-spacing:.12em;color:var(--muted);margin:0 0 8px}
+.pax{display:flex;flex-wrap:wrap;gap:8px}
+.chip{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 12px;font:inherit;font-size:14px;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.chip .s{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.chip.done .s{color:var(--ok);font-weight:700}
+.chip[aria-pressed="true"]{background:var(--pick);color:var(--pickTxt);border-color:var(--pick)}
+.chip[aria-pressed="true"] .s{color:var(--pickTxt)}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--seatEdge);background:var(--seat);display:inline-block}
+.sw.star{border-color:var(--starEdge);background:var(--star)}
+.sw.off{border-color:var(--off);background:var(--off)}
+.sw.pick{border-color:var(--pick);background:var(--pick)}
+.cabin{background:var(--surface);border:1px solid var(--line);border-radius:22px 22px 14px 14px;padding:14px 10px 18px}
+.cabinHead{text-align:center;font-size:12px;color:var(--muted);letter-spacing:.1em;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:26px repeat(2,minmax(0,1fr)) 12px repeat(4,minmax(0,1fr)) 12px repeat(2,minmax(0,1fr));gap:5px 4px;max-width:440px;margin:0 auto;align-items:center}
+.colh{text-align:center;font-size:12px;font-weight:700;color:var(--muted)}
+.rown{font-size:12px;color:var(--muted);text-align:right;padding-right:2px;font-variant-numeric:tabular-nums}
+.seat{appearance:none;aspect-ratio:1/1.05;max-width:100%;border-radius:7px 7px 5px 5px;border:1.5px solid var(--seatEdge);border-bottom-width:4px;background:var(--seat);color:var(--seatTxt);font:inherit;font-size:12px;font-weight:700;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;line-height:1}
+.seat.star{border-color:var(--starEdge);background:var(--star);color:var(--starEdge)}
+.seat.off{border-color:var(--off);background:var(--off);color:var(--offTxt);cursor:not-allowed;border-bottom-width:1.5px}
+.seat.taken{background:var(--pick);border-color:var(--pick);color:var(--pickTxt)}
+.seat:focus-visible,.chip:focus-visible,.tab:focus-visible,.btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.gap{grid-column:1/-1;text-align:center;font-size:11px;color:var(--muted);letter-spacing:.1em;padding:8px 0;border-top:1px dashed var(--line);border-bottom:1px dashed var(--line);margin:4px 0}
+.hint{font-size:13px;color:var(--muted);text-align:center;margin:0;min-height:1.6em}
+.sum{display:grid;gap:14px}
+.sum h3{font-size:14px;margin:0 0 6px;color:var(--ink)}
+.sum ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4px 12px;font-size:14px}
+.sum li{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding:3px 0}
+.sum li .seatno{font-weight:700;font-variant-numeric:tabular-nums}
+.sum li.empty .seatno{color:var(--offTxt);font-weight:400}
+label.f{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+textarea{width:100%;min-height:72px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit;padding:10px;resize:vertical}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+.btn{appearance:none;border:none;border-radius:12px;padding:12px 18px;font:inherit;font-weight:700;cursor:pointer;background:var(--navy);color:#fff}
+.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line);font-weight:500}
+.status{font-size:14px;color:var(--ok);min-height:1.6em;margin:0}
+pre.out{white-space:pre-wrap;word-break:break-word;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px;font-family:var(--font-body);font-size:13px;margin:0;user-select:all}
+.fine{font-size:12px;color:var(--muted);margin:0}
+@media (prefers-reduced-motion:no-preference){.seat,.chip{transition:background .15s,color .15s,border-color .15s}}
+.sw.held{border-color:var(--held);background:var(--held)}
+.seat.held{background:var(--held);border-color:var(--held);color:var(--heldTxt);cursor:not-allowed;border-bottom-width:1.5px}
+.chip .tag{font-size:11px;color:var(--gold)}
+.sync{font-size:12px;color:var(--muted);text-align:center;margin:-10px 0 0}
+.status.err{color:var(--err)}
+.btn[disabled]{opacity:.55;cursor:progress}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="band">
+    <div class="brand">FineDayClub</div>
+    <h1>Susan 小姐家族選位</h1>
+    <p class="sub">2027 東北雪見之旅｜長榮航空 經濟艙｜7 位貴賓</p>
+  </header>
+
+  <section class="card">
+    <p class="sectionLabel">選位方式</p>
+    <ol class="howto">
+      <li>上方選擇<b>去程</b>或<b>回程</b>。</li>
+      <li>點選一位<b>家人姓名</b>，再點座位圖上的<b>可選座位</b>。再點一次同一個座位即可取消。</li>
+      <li>選好後按下方<b>「送出選位」</b>，座位就會保留給您。家人可以各自打開連結選自己的座位，已被選走的座位會顯示為深色。</li>
+    </ol>
+  </section>
+
+  <div class="tabs" role="tablist" aria-label="航段">
+    <button class="tab" role="tab" id="tab-out" data-leg="out" aria-selected="true">
+      <div class="k">去程　2/6（六）</div><div class="v">BR118 桃園 → 仙台</div><div class="c" id="cnt-out">已選 0 / 7</div>
+    </button>
+    <button class="tab" role="tab" id="tab-ret" data-leg="ret" aria-selected="false">
+      <div class="k">回程　2/10（三）</div><div class="v">BR117 仙台 → 桃園</div><div class="c" id="cnt-ret">已選 0 / 7</div>
+    </button>
+  </div>
+
+  <section>
+    <p class="sectionLabel">選擇家人</p>
+    <div class="pax" id="pax"></div>
+  </section>
+
+  <div class="legend" aria-hidden="true">
+    <span><i class="sw"></i>可選座位</span>
+    <span><i class="sw star"></i>★ 優選座位</span>
+    <span><i class="sw pick"></i>您剛選的</span>
+    <span><i class="sw held"></i>家人已送出</span>
+    <span><i class="sw off"></i>無法選擇</span>
+  </div>
+
+  <section class="cabin" aria-label="經濟艙座位圖">
+    <div class="cabinHead">▲ 機頭方向　經濟艙</div>
+    <div class="grid" id="grid"></div>
+  </section>
+  <p class="hint" id="hint"></p>
+  <p class="sync" id="sync">正在讀取家人已選的座位…</p>
+
+  <section class="card sum" id="sum"></section>
+
+  <section class="card">
+    <label class="f" for="note">其他需求（選填，例如：希望夫妻相鄰、靠窗或靠走道）</label>
+    <textarea id="note" placeholder="例如：張先生與曾女士希望坐在一起"></textarea>
+  </section>
+
+  <section class="card" style="display:grid;gap:12px">
+    <div class="actions">
+      <button class="btn" id="send" type="button">送出選位</button>
+      <button class="btn ghost" id="refresh" type="button">重新整理座位</button>
+    </div>
+    <p class="status" id="status" role="status"></p>
+        <p class="fine">★ 優選座位位於客艙前段，可能需另行付費，我們會先為您確認費用。座位為 11/4 查詢時的可選狀態，送出後由 FineDayClub 為您向航空公司劃位，實際以航空公司結果為準。</p>
+  </section>
+</div>
+
+<script>
+(function(){
+  // 部署 Apps Script 後，把網頁應用程式網址（.../exec）貼在這裡
+  var SCRIPT_URL="https://script.google.com/macros/s/AKfycbzm3jroKH7NgJid2nfMJIV7l3SI23IweZYSbi-a8WDjd7EIC3BCP3j5QhtYXJ1rnAQM/exec";
+
+  var COLS=["A","C","D","E","F","G","H","K"];
+  // a = 可選, s = 優選, x = 已被選, b = 不開放, - = 無座位, "|" = 洗手間區隔
+  var MAPS={
+    out:{
+      20:"xxxxxxxx",21:"xxbbbbxx",22:"xxxxxsxx",23:"sxxxsxxx",24:"sxsxxxxx",25:"sxsxssxx",26:"ssssssxx",
+      27:"xxaaaaxa",28:"xxaaaaaa",29:"xxaaaaaa",30:"aaaaaaaa",31:"aaaaaaaa",32:"aaaaaaaa",33:"aaaaaaaa"
+    },
+    ret:{
+      20:"xxxxxxxx",21:"xxbbbbxx",22:"sxxxxxxx",23:"xxsssxxx",24:"xxsssxxx",25:"xxsxxxxs",26:"xxssssxx",
+      27:"xxxaxaax",28:"xxaxxxxx",29:"xxxxxxxx",30:"xxxaaaax",31:"xxxaaaxx",32:"xxaaaaxx",33:"xxaaaaaa",
+      34:"xxxxxxxa",35:"xxxxxxxx",36:"xxaaaaaa",37:"xxaaaaaa",38:"bbbbbbbb",
+      40:"--bbbb--",41:"xxxxxaxx",42:"aaaaaaxx",43:"aaaaaaax",44:"aaaaaaaa",45:"aaaaaaaa"
+    }
+  };
+  var ORDER={
+    out:[20,21,22,23,24,25,26,27,28,29,30,31,32,33],
+    ret:[20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,"|",40,41,42,43,44,45]
+  };
+  var PAX=["張朝湖","曾淑姿","張閔堯","邱麗娟","鄭有為","張念淳","張閔舜"];
+  var LEG_NAME={out:"去程 2/6（六）BR118 桃園→仙台",ret:"回程 2/10（三）BR117 仙台→桃園"};
+
+  // server = 試算表裡已送出的；local = 這次在本頁改的（尚未送出）
+  var state={leg:"out",active:0,server:{out:{},ret:{}},local:{out:{},ret:{}},busy:false};
+
+  var gridEl=document.getElementById("grid"),paxEl=document.getElementById("pax"),hintEl=document.getElementById("hint"),
+      sumEl=document.getElementById("sum"),noteEl=document.getElementById("note"),statusEl=document.getElementById("status"),
+      syncEl=document.getElementById("sync"),sendBtn=document.getElementById("send");
+
+  // 每位旅客目前的座位：本頁有改就用本頁的（null 代表取消），否則用試算表的
+  function seatOf(leg,name){ if(Object.prototype.hasOwnProperty.call(state.local[leg],name)) return state.local[leg][name]; return state.server[leg][name]||null; }
+  function ownerOf(leg,code){ for(var i=0;i<PAX.length;i++){ if(seatOf(leg,PAX[i])===code) return PAX[i]; } return null; }
+  function isLocal(leg,name){ return Object.prototype.hasOwnProperty.call(state.local[leg],name); }
+  function pending(){ return Object.keys(state.local.out).length+Object.keys(state.local.ret).length; }
+  function short(n){ return n.slice(-1); }
+
+  function renderTabs(){
+    ["out","ret"].forEach(function(l){
+      document.getElementById("tab-"+l).setAttribute("aria-selected",String(state.leg===l));
+      var c=PAX.filter(function(n){return seatOf(l,n);}).length;
+      document.getElementById("cnt-"+l).textContent="已選 "+c+" / 7";
+    });
+  }
+  function renderPax(){
+    paxEl.innerHTML="";
+    PAX.forEach(function(n,i){
+      var b=document.createElement("button");b.type="button";b.className="chip";b.id="pax-"+i;
+      var seat=seatOf(state.leg,n);
+      if(seat)b.classList.add("done");
+      b.setAttribute("aria-pressed",String(state.active===i));
+      var t=document.createElement("span");t.textContent=n;
+      var s=document.createElement("span");s.className="s";s.textContent=seat?seat:"未選";
+      b.appendChild(t);b.appendChild(s);
+      if(isLocal(state.leg,n)){var g=document.createElement("span");g.className="tag";g.textContent="未送出";b.appendChild(g);}
+      b.addEventListener("click",function(){state.active=i;render();});
+      paxEl.appendChild(b);
+    });
+  }
+  function renderGrid(){
+    gridEl.innerHTML="";
+    var head=["",COLS[0],COLS[1],"",COLS[2],COLS[3],COLS[4],COLS[5],"",COLS[6],COLS[7]];
+    head.forEach(function(h){var d=document.createElement("div");d.className="colh";d.textContent=h;gridEl.appendChild(d);});
+    var me=PAX[state.active];
+    ORDER[state.leg].forEach(function(r){
+      if(r==="|"){var g=document.createElement("div");g.className="gap";g.textContent="洗手間・廚房";gridEl.appendChild(g);return;}
+      var row=MAPS[state.leg][r];
+      var rn=document.createElement("div");rn.className="rown";rn.textContent=r;gridEl.appendChild(rn);
+      COLS.forEach(function(c,ci){
+        if(ci===2||ci===6){gridEl.appendChild(document.createElement("div"));}
+        var t=row.charAt(ci);
+        if(t==="-"){gridEl.appendChild(document.createElement("div"));return;}
+        var code=r+c,b=document.createElement("button");b.type="button";b.className="seat";b.id="seat-"+state.leg+"-"+code;
+        var owner=ownerOf(state.leg,code);
+        if(t==="x"||t==="b"){b.classList.add("off");b.disabled=true;b.setAttribute("aria-label",code+" 無法選擇");}
+        else if(owner){
+          if(t==="s")b.classList.add("star");
+          // 本頁剛選的、或目前選中的家人自己的座位可以點掉；其他家人已送出的座位不能動
+          if(isLocal(state.leg,owner)||owner===me){b.classList.add("taken");}
+          else{b.classList.add("held");}
+          b.textContent=short(owner);b.setAttribute("aria-label",code+" 已由 "+owner+" 選擇");
+          b.addEventListener("click",function(){pick(code,t);});
+        }else{
+          if(t==="s")b.classList.add("star");
+          b.textContent=t==="s"?"★":"";b.setAttribute("aria-label",code+(t==="s"?" 優選座位":" 可選座位"));
+          b.addEventListener("click",function(){pick(code,t);});
+        }
+        gridEl.appendChild(b);
+      });
+    });
+  }
+  function renderSum(){
+    sumEl.innerHTML="";
+    ["out","ret"].forEach(function(l){
+      var d=document.createElement("div");var h=document.createElement("h3");h.textContent=LEG_NAME[l];d.appendChild(h);
+      var ul=document.createElement("ul");
+      PAX.forEach(function(n){var li=document.createElement("li");var s=seatOf(l,n);if(!s)li.className="empty";
+        var a=document.createElement("span");a.textContent=n;var b=document.createElement("span");b.className="seatno";
+        b.textContent=(s||"未選")+(isLocal(l,n)?"（未送出）":"");
+        li.appendChild(a);li.appendChild(b);ul.appendChild(li);});
+      d.appendChild(ul);sumEl.appendChild(d);
+    });
+  }
+  function pick(code,type){
+    var leg=state.leg,name=PAX[state.active],owner=ownerOf(leg,code);
+    if(owner){
+      if(owner!==name&&!isLocal(leg,owner)){hintEl.textContent=code+" 已由 "+owner+" 選擇。如需更換，請先點選「"+owner+"」再點這個座位取消。";return;}
+      if(state.server[leg][owner]) state.local[leg][owner]=null; else delete state.local[leg][owner];
+      hintEl.textContent=owner+" 已取消 "+code+"（記得按「送出選位」）";
+    }else{
+      if(state.server[leg][name]===code) delete state.local[leg][name]; else state.local[leg][name]=code;
+      hintEl.textContent=name+" → "+code+(type==="s"?"（優選座位，費用將另行確認）":"")+"，記得按「送出選位」";
+      for(var k=1;k<=PAX.length;k++){var j=(state.active+k)%PAX.length;if(!seatOf(leg,PAX[j])){state.active=j;break;}}
+    }
+    statusEl.textContent="";statusEl.className="status";
+    render();
+  }
+  function render(){renderTabs();renderPax();renderGrid();renderSum();sendBtn.disabled=state.busy;}
+
+  function configured(){ return SCRIPT_URL.indexOf("http")===0; }
+  function load(quiet){
+    if(!configured()){syncEl.textContent="（尚未連線到 FineDayClub 選位表，暫時無法送出）";return Promise.resolve();}
+    if(!quiet) syncEl.textContent="正在讀取家人已選的座位…";
+    return fetch(SCRIPT_URL+"?t="+Date.now()).then(function(r){return r.json();}).then(function(d){
+      if(d&&d.ok&&d.taken){state.server=d.taken;
+        // 已被別人送出的座位，若和本頁未送出的衝突就提醒
+        render();
+        syncEl.textContent="座位已更新　"+new Date().toLocaleTimeString("zh-TW",{hour:"2-digit",minute:"2-digit"});
+      }
+    }).catch(function(){syncEl.textContent="暫時無法讀取家人已選的座位，請稍後按「重新整理座位」。";});
+  }
+  function send(){
+    if(!configured()){statusEl.className="status err";statusEl.textContent="選位表尚未連線，請先將結果截圖傳給我們。";return;}
+    if(!pending()){statusEl.className="status";statusEl.textContent="目前沒有需要送出的變更。";return;}
+    var sel={out:{},ret:{}},clear=[];
+    ["out","ret"].forEach(function(l){Object.keys(state.local[l]).forEach(function(n){var v=state.local[l][n];if(v)sel[l][n]=v;else clear.push({leg:l,name:n});});});
+    state.busy=true;render();statusEl.className="status";statusEl.textContent="送出中…";
+    fetch(SCRIPT_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({sel:sel,clear:clear,note:noteEl.value.trim()})})
+      .then(function(r){return r.json();})
+      .then(function(d){
+        state.busy=false;
+        if(!d||!d.ok){throw new Error((d&&d.error)||"send failed");}
+        state.server=d.taken;state.local={out:{},ret:{}};
+        if(d.conflicts&&d.conflicts.length){
+          statusEl.className="status err";
+          statusEl.textContent="以下座位剛被家人選走，請改選其他座位："+d.conflicts.map(function(c){return (c.leg==="out"?"去程 ":"回程 ")+c.seat+"（"+c.name+"）";}).join("、");
+        }else{
+          statusEl.textContent="已送出，謝謝您！我們會依此為您向航空公司劃位。";
+        }
+        render();
+      })
+      .catch(function(){state.busy=false;render();statusEl.className="status err";statusEl.textContent="送出失敗，請確認網路後再按一次「送出選位」。";});
+  }
+
+  document.querySelectorAll(".tab").forEach(function(t){t.addEventListener("click",function(){state.leg=t.getAttribute("data-leg");state.active=0;
+    for(var j=0;j<PAX.length;j++){if(!seatOf(state.leg,PAX[j])){state.active=j;break;}}hintEl.textContent="";render();});});
+  sendBtn.addEventListener("click",send);
+  document.getElementById("refresh").addEventListener("click",function(){load(false);});
+  document.addEventListener("visibilitychange",function(){if(!document.hidden)load(true);});
+  setInterval(function(){if(!document.hidden&&!state.busy)load(true);},30000);
+  render();load(false);
+})();
+</script>
+</body>
+</html>
