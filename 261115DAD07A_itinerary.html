@@ -53,6 +53,11 @@ footer{margin-top:36px;text-align:center;color:var(--muted);font-size:13px}
 footer .b{font-family:"Noto Serif TC",serif;letter-spacing:.26em;color:var(--navy);font-size:15px;margin-top:8px}
 @media (max-width:600px){.meta{grid-template-columns:repeat(2,1fr)}.info{grid-template-columns:1fr}.ev{grid-template-columns:68px 1fr;gap:10px;padding:13px 14px}.dh{padding:13px 14px}}
 @media print{nav.days{display:none}.day{break-inside:avoid}body{background:#fff}header.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+.wx{margin-left:auto;font-size:13px;color:var(--navy);background:#fff;border:1px solid var(--goldl);border-radius:20px;padding:2px 10px;white-space:nowrap}
+.wx:empty{display:none}
+.wx .fb{color:var(--muted)}
+.wx .r{color:#3a6b99;margin-left:4px}
+.wxnote{font-size:12px;color:var(--muted);margin-top:6px}
 </style>
 </head>
 <body>
@@ -86,7 +91,7 @@ footer .b{font-family:"Noto Serif TC",serif;letter-spacing:.26em;color:var(--nav
       <ul>
         <li>全程 7 天專屬包車，備妥 1 歲幼兒安全座椅</li>
         <li>中文導遊全程陪同</li>
-        <li>抵達當天，司機將於入境大廳手持 <b>FineDayClub</b> 接機牌迎接</li>
+        <li>抵達當天，導遊將於入境大廳手持 <b>FineDayClub</b> 接機牌迎接</li>
       </ul>
     </div>
     <div class="box">
@@ -108,23 +113,24 @@ footer .b{font-family:"Noto Serif TC",serif;letter-spacing:.26em;color:var(--nav
 
 <section>
   <h2>每日行程 <small>ITINERARY</small></h2>
+  <p class="wxnote">每日標題旁顯示當地天氣：網頁連線時會自動顯示最新天氣預報（氣溫、降雨機率）；若無法取得預報，則顯示 11 月平均氣溫供參考。11 月為中越雨季，建議攜帶雨具，實際天氣以當地為準。</p>
 
   <div class="day" id="d1">
-    <div class="dh"><span class="n">DAY 1</span><span class="d">11/15（日）</span><span class="t">抵達峴港・安邦海灘晚餐・入住會安海濱別墅</span></div>
+    <div class="dh"><span class="n">DAY 1</span><span class="d">11/15（日）</span><span class="wx" data-date="2026-11-15" data-loc="hoian"><span class="fb">11 月均溫約 22–27°C</span></span><span class="t">抵達峴港・安邦海灘晚餐・入住會安海濱別墅</span></div>
     <div class="ev"><div class="tm">17:15</div><div><div class="ti">抵達峴港國際機場</div><div class="ds">搭乘星宇航空 JX703 抵達峴港。</div></div></div>
-    <div class="ev"><div class="tm">出關後</div><div><div class="ti">專屬接機</div><div class="ds">入境通關、提領行李約需 30–45 分鐘，司機於入境大廳舉牌迎接，出關後直接前往餐廳（車程約 45 分鐘），行李先放在車上。</div></div></div>
+    <div class="ev"><div class="tm">出關後</div><div><div class="ti">專屬接機</div><div class="ds">入境通關、提領行李約需 30–45 分鐘，導遊於入境大廳舉牌迎接，出關後直接前往餐廳（車程約 45 分鐘），行李先放在車上。</div></div></div>
     <div class="ev"><div class="tm">19:00</div><div><div class="ti">晚餐｜The DeckHouse An Bang Beach</div><div class="ds">位於安邦海灘第一排的海景餐廳，就在別墅附近，享用海鮮與調酒。</div>
       <div class="tags"><span class="tag ok">已預訂 19:00・10 位</span><a class="map" href="https://maps.app.goo.gl/hiWGJQQG5MeCDHEX7" target="_blank" rel="noopener">Google Maps →</a></div></div></div>
     <div class="ev"><div class="tm">餐後</div><div><div class="ti">入住 The Pearl Hoi An</div><div class="ds">返回別墅辦理入住、安頓行李，好好休息。</div></div></div>
   </div>
 
   <div class="day" id="d2">
-    <div class="dh"><span class="n">DAY 2</span><span class="d">11/16（一）</span><span class="t">奧黛古鎮寫真・手工訂製鞋・水椰林椰籃船</span></div>
+    <div class="dh"><span class="n">DAY 2</span><span class="d">11/16（一）</span><span class="wx" data-date="2026-11-16" data-loc="hoian"><span class="fb">11 月均溫約 22–27°C</span></span><span class="t">奧黛古鎮寫真・手工訂製鞋・水椰林椰籃船</span></div>
     <div class="ev"><div class="tm">09:00–11:00</div><div><div class="ti">奧黛換裝與古鎮寫真攝影（4 位）</div><div class="ds">含換裝與妝髮造型，攝影師隨行漫步會安古鎮拍攝，當天可於店內挑選喜歡的款式與顏色。</div>
       <div class="tags"><span class="tag ok">已預訂 09:00–11:00・4 位</span><span class="tag">會安古鎮</span></div>
       <div class="note">尾款請於現場以越南盾現金支付。</div></div></div>
     <div class="ev"><div class="tm">12:00</div><div><div class="ti">午餐｜Morning Glory Original</div><div class="ds">會安代表性的在地料理名店，可品嚐白玫瑰、高樓麵、炸餛飩等會安名菜。</div>
-      <div class="tags"><span class="tag wip">安排中</span><span class="tag">106 Nguyễn Thái Học, Hội An</span><a class="map" href="https://maps.app.goo.gl/sCXCn6Us3db3wdpP7" target="_blank" rel="noopener">Google Maps →</a></div></div></div>
+      <div class="tags"><span class="tag ok">已預訂 12:00・10 位</span><span class="tag">106 Nguyễn Thái Học, Hội An</span><a class="map" href="https://maps.app.goo.gl/sCXCn6Us3db3wdpP7" target="_blank" rel="noopener">Google Maps →</a></div></div></div>
     <div class="ev"><div class="tm">13:45</div><div><div class="ti">迦南島水椰林椰籃船體驗</div><div class="ds">乘坐越南特色圓形椰籃船穿梭水椰林水道，欣賞船夫的旋轉甩船表演。</div>
       <div class="tags"><span class="tag wip">安排中</span><a class="map" href="https://www.google.com/maps/search/?api=1&query=Cam+Thanh+Coconut+Forest+Hoi+An" target="_blank" rel="noopener">Google Maps →</a></div></div></div>
     <div class="ev"><div class="tm">15:30</div><div><div class="ti">Uncle Huan Coffee 咖啡小憩</div><div class="ds">在古鎮咖啡館稍作休息，品嚐越式咖啡。</div>
@@ -135,7 +141,7 @@ footer .b{font-family:"Noto Serif TC",serif;letter-spacing:.26em;color:var(--nav
   </div>
 
   <div class="day" id="d3">
-    <div class="dh"><span class="n">DAY 3</span><span class="d">11/17（二）</span><span class="t">取鞋・北上峴港・海鮮午餐・入住峴港泳池別墅</span></div>
+    <div class="dh"><span class="n">DAY 3</span><span class="d">11/17（二）</span><span class="wx" data-date="2026-11-17" data-loc="danang"><span class="fb">11 月均溫約 22–27°C</span></span><span class="t">取鞋・北上峴港・海鮮午餐・入住峴港泳池別墅</span></div>
     <div class="ev"><div class="tm">09:30</div><div><div class="ti">領取訂製鞋與試穿</div><div class="ds">導遊陪同前往店家試穿取件。</div></div></div>
     <div class="ev"><div class="tm">10:30</div><div><div class="ti">退房 The Pearl Hoi An，專車前往峴港</div><div class="ds">享用早餐後辦理退房，專車北上峴港。</div></div></div>
     <div class="ev"><div class="tm">11:30</div><div><div class="ti">午餐｜Hải sản Mộc quán 海鮮餐廳</div><div class="ds">峴港人氣海鮮餐廳，品嚐現撈海鮮。</div>
@@ -148,7 +154,7 @@ footer .b{font-family:"Noto Serif TC",serif;letter-spacing:.26em;color:var(--nav
   </div>
 
   <div class="day" id="d4">
-    <div class="dh"><span class="n">DAY 4</span><span class="d">11/18（三）</span><span class="t">市區伴手禮・Pizza 4P's・精油按摩</span></div>
+    <div class="dh"><span class="n">DAY 4</span><span class="d">11/18（三）</span><span class="wx" data-date="2026-11-18" data-loc="danang"><span class="fb">11 月均溫約 22–27°C</span></span><span class="t">市區伴手禮・Pizza 4P's・精油按摩</span></div>
     <div class="ev"><div class="tm">09:30</div><div><div class="ti">ViGift 伴手禮與選品小店</div><div class="ds">選購腰果、咖啡豆、水果乾等在地伴手禮。</div>
       <div class="tags"><a class="map" href="https://www.google.com/maps/search/?api=1&query=ViGift+Da+Nang" target="_blank" rel="noopener">Google Maps →</a></div></div></div>
     <div class="ev"><div class="tm">11:30</div><div><div class="ti">午餐｜Pizza 4P's Indochina</div><div class="ds">人氣手工窯烤披薩與自製起司料理。</div>
@@ -157,11 +163,11 @@ footer .b{font-family:"Noto Serif TC",serif;letter-spacing:.26em;color:var(--nav
       <div class="tags"><span class="tag ok">已預約 13:00・7 位</span><a class="map" href="https://www.google.com/maps/search/?api=1&query=Luxury+Healthy+Spa+Da+Nang" target="_blank" rel="noopener">Google Maps →</a></div></div></div>
     <div class="ev"><div class="tm">16:00</div><div><div class="ti">別墅泳池時光</div><div class="ds">返回別墅休息、玩水。</div></div></div>
     <div class="ev"><div class="tm">18:30</div><div><div class="ti">晚餐｜Bé Ni 2 海鮮餐廳</div><div class="ds">峴港在地海鮮餐廳。</div>
-      <div class="tags"><span class="tag wip">安排中・時間確認後通知</span><a class="map" href="https://maps.app.goo.gl/h7yHNAogED2HHvVF7" target="_blank" rel="noopener">Google Maps →</a></div></div></div>
+      <div class="tags"><span class="tag ok">已預訂・10 位</span><a class="map" href="https://maps.app.goo.gl/h7yHNAogED2HHvVF7" target="_blank" rel="noopener">Google Maps →</a></div></div></div>
   </div>
 
   <div class="day" id="d5">
-    <div class="dh"><span class="n">DAY 5</span><span class="d">11/19（四）</span><span class="t">巴拿山雲端漫遊・黃金佛手橋・景觀自助午餐</span></div>
+    <div class="dh"><span class="n">DAY 5</span><span class="d">11/19（四）</span><span class="wx" data-date="2026-11-19" data-loc="danang"><span class="fb">11 月均溫約 22–27°C</span></span><span class="t">巴拿山雲端漫遊・黃金佛手橋・景觀自助午餐</span></div>
     <div class="ev"><div class="tm">08:30</div><div><div class="ti">專車前往巴拿山太陽世界</div><div class="ds">車程約 50 分鐘，及早抵達避開人潮。門票已安排妥當，由導遊協助入園。</div>
       <div class="tags"><a class="map" href="https://www.google.com/maps/search/?api=1&query=Sun+World+Ba+Na+Hills" target="_blank" rel="noopener">Google Maps →</a></div></div></div>
     <div class="ev"><div class="tm">09:30</div><div><div class="ti">高空纜車・黃金佛手橋</div><div class="ds">搭乘纜車上山，漫步黃金佛手橋拍照留念。</div></div></div>
@@ -175,10 +181,10 @@ footer .b{font-family:"Noto Serif TC",serif;letter-spacing:.26em;color:var(--nav
   </div>
 
   <div class="day" id="d6">
-    <div class="dh"><span class="n">DAY 6</span><span class="d">11/20（五）</span><span class="t">別墅慢活・Onda Spa・法式晚宴</span></div>
+    <div class="dh"><span class="n">DAY 6</span><span class="d">11/20（五）</span><span class="wx" data-date="2026-11-20" data-loc="danang"><span class="fb">11 月均溫約 22–27°C</span></span><span class="t">別墅慢活・Onda Spa・法式晚宴</span></div>
     <div class="ev"><div class="tm">上午</div><div><div class="ti">別墅慢活時光</div><div class="ds">全日留白不拉車，享受泳池與別墅設施。</div></div></div>
-    <div class="ev"><div class="tm">12:30</div><div><div class="ti">午餐</div><div class="ds">餐廳推薦中，確認後再通知您。</div>
-      <div class="tags"><span class="tag wip">安排中</span></div></div></div>
+    <div class="ev"><div class="tm">12:30</div><div><div class="ti">午餐｜Six on Six Cafe – Brunch &amp; Restaurant</div><div class="ds">綠意環繞的早午餐餐廳，氣氛輕鬆，享用清爽的午間餐點。</div>
+      <div class="tags"><span class="tag wip">安排中</span><span class="tag">64 Bà Huyện Thanh Quan, Ngũ Hành Sơn</span><a class="map" href="https://www.google.com/maps/search/?api=1&query=Six+on+Six+Cafe+64+Ba+Huyen+Thanh+Quan+Da+Nang" target="_blank" rel="noopener">Google Maps →</a></div></div></div>
     <div class="ev"><div class="tm">14:30</div><div><div class="ti">Onda Spa 按摩舒壓（7 位）</div><div class="ds">90 分鐘舒壓療程，約 16:00 結束。</div>
       <div class="tags"><span class="tag ok">已預約 14:30–16:00・7 位</span><a class="map" href="https://www.google.com/maps/search/?api=1&query=Onda+Spa+Da+Nang" target="_blank" rel="noopener">Google Maps →</a></div></div></div>
     <div class="ev"><div class="tm">16:00</div><div><div class="ti">返回別墅休息、梳洗換裝</div><div class="ds">按摩後回別墅放鬆，準備晚上的法式晚宴。</div></div></div>
@@ -187,10 +193,10 @@ footer .b{font-family:"Noto Serif TC",serif;letter-spacing:.26em;color:var(--nav
   </div>
 
   <div class="day" id="d7">
-    <div class="dh"><span class="n">DAY 7</span><span class="d">11/21（六）</span><span class="t">悠閒晨光・告別午餐・平安返台</span></div>
+    <div class="dh"><span class="n">DAY 7</span><span class="d">11/21（六）</span><span class="wx" data-date="2026-11-21" data-loc="danang"><span class="fb">11 月均溫約 22–27°C</span></span><span class="t">悠閒晨光・告別午餐・平安返台</span></div>
     <div class="ev"><div class="tm">10:00</div><div><div class="ti">別墅早餐、整理行李退房</div><div class="ds">睡到自然醒，司機協助裝載行李。</div></div></div>
     <div class="ev"><div class="tm">12:30</div><div><div class="ti">午餐｜Nhà hàng Làn Gió 越式料理</div><div class="ds">當代越南料理，為這趟旅程留下越式的美好回憶。</div>
-      <div class="tags"><span class="tag wip">安排中</span><a class="map" href="https://maps.app.goo.gl/ayuTvev4gJif4v3F7" target="_blank" rel="noopener">Google Maps →</a></div></div></div>
+      <div class="tags"><span class="tag ok">已預訂 12:30・10 位</span><a class="map" href="https://maps.app.goo.gl/ayuTvev4gJif4v3F7" target="_blank" rel="noopener">Google Maps →</a></div></div></div>
     <div class="ev"><div class="tm">14:30</div><div><div class="ti">專車前往峴港國際機場</div><div class="ds">車程約 20 分鐘。</div></div></div>
     <div class="ev"><div class="tm">18:25</div><div><div class="ti">搭乘星宇航空 JX704 返台</div><div class="ds">預計 22:10 抵達桃園機場第二航廈。</div></div></div>
   </div>
@@ -201,5 +207,34 @@ footer .b{font-family:"Noto Serif TC",serif;letter-spacing:.26em;color:var(--nav
   <div class="b">FineDayClub</div>
 </footer>
 </div>
+<script>
+(function(){
+  var LOC={hoian:{lat:15.88,lon:108.33},danang:{lat:16.05,lon:108.22}};
+  function desc(c){
+    if(c===0)return'☀️ 晴';if(c<=2)return'🌤 晴時多雲';if(c===3)return'☁️ 陰';
+    if(c===45||c===48)return'🌫 霧';if(c>=51&&c<=57)return'🌦 毛毛雨';
+    if((c>=61&&c<=67)||(c>=80&&c<=82))return'🌧 雨';if(c>=95)return'⛈ 雷雨';return'';
+  }
+  var els=[].slice.call(document.querySelectorAll('.wx[data-date]'));
+  var groups={};
+  els.forEach(function(e){(groups[e.dataset.loc]=groups[e.dataset.loc]||[]).push(e);});
+  Object.keys(groups).forEach(function(k){
+    var g=groups[k],ds=g.map(function(e){return e.dataset.date;}).sort();
+    var u='https://api.open-meteo.com/v1/forecast?latitude='+LOC[k].lat+'&longitude='+LOC[k].lon+
+      '&daily=temperature_2m_max,temperature_2m_min,weather_code,precipitation_probability_max&timezone=Asia%2FHo_Chi_Minh'+
+      '&start_date='+ds[0]+'&end_date='+ds[ds.length-1];
+    fetch(u).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){
+      var d=j.daily||{};
+      g.forEach(function(e){
+        var i=(d.time||[]).indexOf(e.dataset.date);
+        if(i<0||d.temperature_2m_max[i]==null)return;
+        var t=desc(d.weather_code[i])+' '+Math.round(d.temperature_2m_min[i])+'–'+Math.round(d.temperature_2m_max[i])+'°C';
+        var p=d.precipitation_probability_max&&d.precipitation_probability_max[i];
+        e.innerHTML=t+(p!=null?'<span class="r">☂ '+p+'%</span>':'');
+      });
+    }).catch(function(){});
+  });
+})();
+</script>
 </body>
 </html>
