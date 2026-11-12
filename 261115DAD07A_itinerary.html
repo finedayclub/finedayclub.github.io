@@ -38,6 +38,7 @@ h2 small{font-family:inherit;font-size:11px;letter-spacing:.24em;color:var(--gol
 .dh .n{color:var(--gold);font-weight:700;font-size:15px;letter-spacing:.06em}
 .dh .d{font-weight:700;font-size:19px;color:var(--navy)}
 .dh .t{color:var(--muted);font-size:14px;flex-basis:100%}
+.ev>div{min-width:0}
 .ev{display:grid;grid-template-columns:86px 1fr;gap:12px;padding:14px 18px;border-top:1px solid #f1ebe0}
 .ev:first-of-type{border-top:none}
 .tm{color:var(--gold);font-weight:700;font-size:14.5px;padding-top:1px}
@@ -57,6 +58,27 @@ footer .b{font-family:"Noto Serif TC",serif;letter-spacing:.26em;color:var(--nav
 .wx:empty{display:none}
 .wx .fb{color:var(--muted)}
 .wx .r{color:#3a6b99;margin-left:4px}
+.pay{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:14px}
+.pay th{background:#fbf5ea;color:var(--gold);font-weight:600;letter-spacing:.08em;font-size:12.5px;text-align:left;padding:10px 14px;border-bottom:1px solid var(--line)}
+.pay td{padding:12px 14px;border-top:1px solid #f1ebe0;vertical-align:top}
+.pay tr:first-child td{border-top:none}
+.pay .dt{color:var(--gold);font-weight:700;white-space:nowrap}
+.pay .it{font-weight:700;color:var(--ink)}
+.pay .sm{white-space:normal;display:block;font-size:12.5px;color:var(--muted);font-weight:400;margin-top:2px}
+.pay .amt{font-weight:700;color:var(--navy);white-space:nowrap}
+.pay .mt{display:flex;flex-wrap:wrap;gap:5px}
+.pay .mt span{font-size:12px;border-radius:4px;padding:2px 8px;background:#eef2f3;color:#3f5966}
+.pay .mt .no{background:#fbeaea;color:#9a3a3a}
+.menu{margin-top:10px;border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13.5px}
+.menu .mh{background:#fbf5ea;color:var(--gold);font-weight:600;font-size:12.5px;letter-spacing:.06em;padding:7px 12px}
+.menu .r{display:grid;grid-template-columns:1fr auto;gap:8px;padding:8px 12px;border-top:1px solid #f1ebe0}
+.menu .r b{color:var(--ink);font-weight:600}
+.menu .r small{display:block;color:var(--muted);font-size:12px}
+.menu .r .p{color:var(--navy);font-weight:700;text-align:right;white-space:nowrap}
+.menu .r .p small{font-weight:400;display:block;font-size:11.5px}
+@media (max-width:600px){.menu .r{grid-template-columns:1fr;gap:2px}.menu .r .p{text-align:left;white-space:normal}.menu .r .p small{display:block}}
+.paynote{font-size:12.5px;color:var(--muted);margin-top:8px}
+@media (max-width:600px){.pay thead{display:none}.pay,.pay tbody,.pay tr,.pay td{display:block;width:100%}.pay tr{border-top:1px solid var(--line);padding:10px 0}.pay tr:first-child{border-top:none}.pay td{border:none;padding:3px 14px}}
 .wxnote{font-size:12px;color:var(--muted);margin-top:6px}
 </style>
 </head>
@@ -75,7 +97,7 @@ footer .b{font-family:"Noto Serif TC",serif;letter-spacing:.26em;color:var(--nav
 
 <div class="wrap">
 <nav class="days"><div class="in">
-  <a href="#info">行前資訊</a><a href="#d1">11/15</a><a href="#d2">11/16</a><a href="#d3">11/17</a><a href="#d4">11/18</a><a href="#d5">11/19</a><a href="#d6">11/20</a><a href="#d7">11/21</a>
+  <a href="#info">行前資訊</a><a href="#d1">11/15</a><a href="#d2">11/16</a><a href="#d3">11/17</a><a href="#d4">11/18</a><a href="#d5">11/19</a><a href="#d6">11/20</a><a href="#d7">11/21</a><a href="#pay">現場付費</a>
 </div></nav>
 
 <section id="info">
@@ -90,7 +112,7 @@ footer .b{font-family:"Noto Serif TC",serif;letter-spacing:.26em;color:var(--nav
       <h3>專屬用車與導遊</h3>
       <ul>
         <li>全程 7 天專屬包車，備妥 1 歲幼兒安全座椅</li>
-        <li>中文導遊全程陪同</li>
+        <li>中文導遊全程陪同：<b>武氏蓮（Vũ Thị Sen）</b>，電話 <a href="tel:+84987690556">+84 987 690 556</a></li>
         <li>抵達當天，導遊將於入境大廳手持 <b>FineDayClub</b> 接機牌迎接</li>
       </ul>
     </div>
@@ -103,7 +125,8 @@ footer .b{font-family:"Noto Serif TC",serif;letter-spacing:.26em;color:var(--nav
       <h3>貼心提醒</h3>
       <ul>
         <li>入住別墅時請備妥護照</li>
-        <li>11/16 奧黛寫真尾款請於現場以越南盾現金支付</li>
+        <li>行程中的餐廳皆為代訂位，餐費請於用餐時現場支付，大部分餐廳可使用信用卡（11/19 巴拿山四季自助午餐已含於門票）</li>
+        <li>奧黛寫真與兩間 Spa 需現場付款，金額與付款方式請見頁面最下方 <a href="#pay">現場付費一覽</a></li>
         <li>11/19 巴拿山山上氣溫較低，建議攜帶薄外套</li>
       </ul>
     </div>
@@ -127,7 +150,7 @@ footer .b{font-family:"Noto Serif TC",serif;letter-spacing:.26em;color:var(--nav
     <div class="dh"><span class="n">DAY 2</span><span class="d">11/16（一）</span><span class="wx" data-date="2026-11-16" data-loc="hoian"><span class="fb">11 月均溫約 22–27°C</span></span><span class="t">奧黛古鎮寫真・手工訂製鞋・水椰林椰籃船</span></div>
     <div class="ev"><div class="tm">09:00–11:00</div><div><div class="ti">奧黛換裝與古鎮寫真攝影（4 位）</div><div class="ds">含換裝與妝髮造型，攝影師隨行漫步會安古鎮拍攝，當天可於店內挑選喜歡的款式與顏色。</div>
       <div class="tags"><span class="tag ok">已預訂 09:00–11:00・4 位</span><span class="tag">會安古鎮</span></div>
-      <div class="note">尾款請於現場以越南盾現金支付。</div></div></div>
+      <div class="note">現場尾款 VND 4,840,000（含 4 位妝髮造型），可用越南盾現金或支付寶付款。</div></div></div>
     <div class="ev"><div class="tm">12:00</div><div><div class="ti">午餐｜Morning Glory Original</div><div class="ds">會安代表性的在地料理名店，可品嚐白玫瑰、高樓麵、炸餛飩等會安名菜。</div>
       <div class="tags"><span class="tag ok">已預訂 12:00・10 位</span><span class="tag">106 Nguyễn Thái Học, Hội An</span><a class="map" href="https://maps.app.goo.gl/sCXCn6Us3db3wdpP7" target="_blank" rel="noopener">Google Maps →</a></div></div></div>
     <div class="ev"><div class="tm">13:45</div><div><div class="ti">迦南島水椰林椰籃船體驗</div><div class="ds">乘坐越南特色圓形椰籃船穿梭水椰林水道，欣賞船夫的旋轉甩船表演。</div>
@@ -158,7 +181,8 @@ footer .b{font-family:"Noto Serif TC",serif;letter-spacing:.26em;color:var(--nav
       <div class="tags"><a class="map" href="https://www.google.com/maps/search/?api=1&query=ViGift+Da+Nang" target="_blank" rel="noopener">Google Maps →</a></div></div></div>
     <div class="ev"><div class="tm">11:30</div><div><div class="ti">午餐｜Pizza 4P's Indochina</div><div class="ds">人氣手工窯烤披薩與自製起司料理。</div>
       <div class="tags"><span class="tag ok">已預訂 11:30・10 位</span><a class="map" href="https://www.google.com/maps/search/?api=1&query=Pizza+4P%27s+Indochina+Da+Nang" target="_blank" rel="noopener">Google Maps →</a></div></div></div>
-    <div class="ev"><div class="tm">13:00</div><div><div class="ti">Luxury Healthy Spa 精油按摩（7 位）</div><div class="ds">Healthy Massage 60 分鐘，舒緩旅途疲勞。費用於現場支付。</div>
+    <div class="ev"><div class="tm">13:00</div><div><div class="ti">Luxury Healthy Spa 精油按摩（7 位）</div><div class="ds">Healthy Massage 60 分鐘，舒緩旅途疲勞。</div>
+      <div class="note">現場付款 VND 3,465,000（7 位），可用現金或支付寶付款。</div>
       <div class="tags"><span class="tag ok">已預約 13:00・7 位</span><a class="map" href="https://www.google.com/maps/search/?api=1&query=Luxury+Healthy+Spa+Da+Nang" target="_blank" rel="noopener">Google Maps →</a></div></div></div>
     <div class="ev"><div class="tm">16:00</div><div><div class="ti">別墅泳池時光</div><div class="ds">返回別墅休息、玩水。</div></div></div>
     <div class="ev"><div class="tm">18:30</div><div><div class="ti">晚餐｜Bé Ni 2 海鮮餐廳</div><div class="ds">峴港在地海鮮餐廳。</div>
@@ -185,7 +209,9 @@ footer .b{font-family:"Noto Serif TC",serif;letter-spacing:.26em;color:var(--nav
     <div class="ev"><div class="tm">12:30</div><div><div class="ti">午餐｜Six on Six Cafe – Brunch &amp; Restaurant</div><div class="ds">綠意環繞的早午餐餐廳，氣氛輕鬆，享用清爽的午間餐點。</div>
       <div class="tags"><span class="tag ok">已預訂 12:30・10 位（分兩桌）</span><span class="tag">64 Bà Huyện Thanh Quan, Ngũ Hành Sơn</span><a class="map" href="https://www.google.com/maps/search/?api=1&query=Six+on+Six+Cafe+64+Ba+Huyen+Thanh+Quan+Da+Nang" target="_blank" rel="noopener">Google Maps →</a></div></div></div>
     <div class="ev"><div class="tm">14:30</div><div><div class="ti">Onda Spa 按摩舒壓（7 位）</div><div class="ds">90 分鐘舒壓療程，含報到、更衣與休息，全程約 1 小時 50 分鐘，約 16:20 結束。</div>
-      <div class="tags"><span class="tag ok">已預約 14:30–16:20・7 位</span><a class="map" href="https://www.google.com/maps/search/?api=1&query=Onda+Spa+Da+Nang" target="_blank" rel="noopener">Google Maps →</a></div></div></div>
+      <div class="menu"><div class="mh">90 分鐘療程選項（每位擇一）</div><div class="r"><div><b>足部按摩</b><small>Foot Massage</small></div><div class="p">VND 600,000<small>USD 24・含小費 VND 675,000</small></div></div><div class="r"><div><b>香薰精油按摩</b><small>Aroma Massage</small></div><div class="p">VND 750,000<small>USD 30・含小費 VND 825,000</small></div></div><div class="r"><div><b>Onda 招牌按摩</b><small>Onda Signature Massage・結合熱石、精油與草藥包</small></div><div class="p">VND 800,000<small>USD 32・含小費 VND 875,000</small></div></div><div class="r"><div><b>熱石按摩</b><small>Hotstone Massage</small></div><div class="p">VND 750,000<small>USD 30・含小費 VND 825,000</small></div></div><div class="r"><div><b>曬後修復按摩</b><small>Sunburn Care Massage・含清涼蘆薈</small></div><div class="p">VND 750,000<small>USD 30・含小費 VND 825,000</small></div></div><div class="r"><div><b>孕婦舒緩按摩</b><small>Pregnancy Calming Massage</small></div><div class="p">VND 750,000<small>USD 30・含小費 VND 825,000</small></div></div><div class="r"><div><b>兒童按摩</b><small>Kid Massage・限 11 歲以下</small></div><div class="p">VND 600,000<small>USD 24・含小費 VND 675,000</small></div></div></div>
+      <div class="note">請於出發前告知每位的療程選擇。費用現場支付，僅收美元或越南盾現金，不接受信用卡；以 1 USD = 25,000 VND 計算，結帳時一併收取固定小費每位 VND 75,000（USD 3）。</div>
+      <div class="tags"><span class="tag ok">已預約 14:30–16:20・7 位</span><a class="map" href="https://www.google.com/maps/search/?api=1&query=Onda+Spa+142+Bach+Dang+Hai+Chau+Da+Nang" target="_blank" rel="noopener">Google Maps →</a></div></div></div>
     <div class="ev"><div class="tm">16:20</div><div><div class="ti">返回別墅休息、梳洗換裝</div><div class="ds">按摩後回別墅放鬆，準備晚上的法式晚宴。</div></div></div>
     <div class="ev"><div class="tm">19:30</div><div><div class="ti">晚餐｜Le Comptoir 法式晚宴</div><div class="ds">峴港精緻法式餐廳，為旅程留下美好回憶。</div>
       <div class="tags"><span class="tag ok">已預訂 19:30・10 位</span><a class="map" href="https://www.google.com/maps/search/?api=1&query=Le+Comptoir+Danang" target="_blank" rel="noopener">Google Maps →</a></div></div></div>
@@ -199,6 +225,19 @@ footer .b{font-family:"Noto Serif TC",serif;letter-spacing:.26em;color:var(--nav
     <div class="ev"><div class="tm">14:30</div><div><div class="ti">專車前往峴港國際機場</div><div class="ds">車程約 20 分鐘。</div></div></div>
     <div class="ev"><div class="tm">18:25</div><div><div class="ti">搭乘星宇航空 JX704 返台</div><div class="ds">預計 22:10 抵達桃園機場第二航廈。</div></div></div>
   </div>
+</section>
+
+<section id="pay" style="scroll-margin-top:60px">
+  <h2>現場付費一覽 <small>PAYMENT ON SITE</small></h2>
+  <table class="pay">
+    <thead><tr><th>日期</th><th>項目</th><th>現場支付金額</th><th>付款方式</th></tr></thead>
+    <tbody>
+      <tr><td class="dt">11/16（一）</td><td class="it">奧黛換裝與古鎮寫真<span class="sm">尾款・4 位（含妝髮造型）</span></td><td class="amt">每位約 VND 1,210,000<span class="sm" style="font-weight:400">套餐尾款 VND 710,000＋妝髮造型 VND 500,000<br>4 位合計 VND 4,840,000</span></td><td><div class="mt"><span>越南盾現金</span><span>支付寶</span></div></td></tr>
+      <tr><td class="dt">11/18（三）</td><td class="it">Luxury Healthy Spa<span class="sm">Healthy Massage 60 分鐘・7 位</span></td><td class="amt">每位 VND 495,000<span class="sm" style="font-weight:400">7 位共 VND 3,465,000（約 USD 20／位）</span></td><td><div class="mt"><span>現金</span><span>支付寶</span></div></td></tr>
+      <tr><td class="dt">11/20（五）</td><td class="it">Onda Spa<span class="sm">90 分鐘療程・7 位</span></td><td class="amt">每位 VND 675,000–875,000<span class="sm" style="font-weight:400">依所選療程，含小費 VND 75,000（約 USD 27–35）</span></td><td><div class="mt"><span>美元現金</span><span>越南盾現金</span><span class="no">不接受信用卡</span></div><span class="sm" style="font-size:12px;color:var(--muted);display:block;margin-top:4px">1 USD = 25,000 VND</span></td></tr>
+    </tbody>
+  </table>
+  <p class="paynote">以上金額為現場直接支付給店家的費用。各餐廳為代訂位，餐費於用餐時現場支付，大部分餐廳可使用信用卡。導遊會在現場協助，建議預先備妥適量越南盾現金。</p>
 </section>
 
 <footer>
