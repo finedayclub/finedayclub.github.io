@@ -17,6 +17,7 @@ header .in{max-width:1000px;margin:0 auto}
 h1{font-size:22px;margin:6px 0 2px;letter-spacing:.04em}
 header p{color:#cfd7db;font-size:13px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.grid .notes{grid-column:span 2}
 .box{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
 .box h3{font-size:12.5px;color:var(--gold);letter-spacing:.12em;margin-bottom:4px}
 .box p,.box li{font-size:13.5px}
@@ -41,7 +42,7 @@ nav a{text-decoration:none;font-size:12.5px;color:var(--navy);border:1px solid v
 .todo li{margin-left:18px;font-size:13.5px}
 footer{margin-top:28px;text-align:center;font-size:12.5px;color:var(--muted)}
 @media (max-width:720px){
- .grid{grid-template-columns:1fr}
+ .grid{grid-template-columns:1fr} .grid .notes{grid-column:auto}
  table,thead,tbody,tr,td{display:block;width:100%}
  thead{display:none}
  tr{border-top:1px solid #efe9de;padding:8px 10px}
@@ -78,6 +79,11 @@ footer{margin-top:28px;text-align:center;font-size:12.5px;color:var(--muted)}
   <div class="box"><h3>住宿 1｜11/15–11/17（2 晚）</h3><p>The Pearl Hoi An<br>五臥室海濱私人泳池別墅（含早餐）<br>訂房代號 1084852（已付清）<br>電話 <a href="tel:+842352208888">+84 235 220 8888</a><br><a href="https://www.google.com/maps/search/?api=1&query=The+Pearl+Hoi+An" target="_blank" rel="noopener">地圖</a></p></div>
   <div class="box"><h3>住宿 2｜11/17–11/21（4 晚）</h3><p>Sila Ananda 6BRs Pool Villa（Đảo Xanh, Đà Nẵng）<br>訂單 ORD0032652992，憑住宿券＋護照入住<br>電話 <a href="tel:+84857572565">+84 857 572 565</a><br><a href="https://www.google.com/maps/search/?api=1&query=Sila+Ananda+6BRs+Pool+Villa+Dao+Xanh+Da+Nang" target="_blank" rel="noopener">地圖</a></p></div>
   <div class="box"><h3>FineDayClub 聯絡窗口</h3><p>Angela Tu<br>請透過 LINE 聯繫<br>如有臨時狀況、聯繫不上旅客，請立即通知</p></div>
+  <div class="box notes"><h3>已告知旅客的行前注意事項</h3><ul>
+    <li><b>入境文件：</b>每位旅客（含小孩、嬰兒）皆需電子簽證與入境卡；已提醒核對姓名、護照號碼、入境口岸（峴港 DAD）與日期，並備妥簽證紙本與入境卡截圖。接機時如旅客入境遇到文件問題，請協助並立即通知 FineDayClub</li>
+    <li><b>抵達當天：</b>已告知旅客 JX703 17:15 抵達，出關後與導遊武氏蓮會合，導遊將手持 FineDayClub 接機牌</li>
+    <li><b>天氣：</b>11 月為雨季，已提醒旅客攜帶雨具；椰籃船等戶外行程請視當天天氣調整，如需變更請先與 FineDayClub 確認</li>
+    <li><b>其他：</b>已提醒電壓 220V、建議購買 eSIM</li></ul></div>
 </div>
 
 <nav><div class="in"><a href="#d1">11/15</a><a href="#d2">11/16</a><a href="#d3">11/17</a><a href="#d4">11/18</a><a href="#d5">11/19</a><a href="#d6">11/20</a><a href="#d7">11/21</a><a href="#todo">待確認</a></div></nav>
@@ -114,7 +120,7 @@ footer{margin-top:28px;text-align:center;font-size:12.5px;color:var(--muted)}
 <table><thead><tr><th>時間</th><th>行程</th><th>預訂資訊</th><th>備註</th></tr></thead><tbody>
 <tr><td class="t">09:30</td><td class="i"><b>ViGift 伴手禮＋Rechic 選品店</b><a href="https://www.google.com/maps/search/?api=1&query=ViGift+Da+Nang" target="_blank" rel="noopener">地圖</a></td><td data-l="預訂">無需預訂</td><td data-l="備註">—</td></tr>
 <tr><td class="t">11:30</td><td class="i"><b>午餐｜Pizza 4P's Indochina</b><a href="https://www.google.com/maps/search/?api=1&query=Pizza+4P%27s+Indochina+Da+Nang" target="_blank" rel="noopener">地圖</a></td><td data-l="預訂"><span class="s ok">已預訂</span> 10 位</td><td data-l="備註">—</td></tr>
-<tr><td class="t">13:00</td><td class="i"><b>Luxury Healthy Spa</b><span class="m">Healthy Massage 60 分鐘</span><span class="m">☎ <a href="tel:+84896907799">+84 896 907 799</a></span><a href="https://healthyspadanang.com/zh/" target="_blank" rel="noopener">官網</a></td><td data-l="預訂"><span class="s ok">已預約</span> 13:00｜7 位</td><td data-l="備註"><span class="s pay">旅客現場付款 VND 3,465,000（現金或支付寶）</span><br>未按摩的 3 位（含小孩、嬰兒）請協助安排等候或先回別墅</td></tr>
+<tr><td class="t">13:00</td><td class="i"><b>Luxury Healthy Spa</b><span class="m">Healthy Massage 60 分鐘</span><span class="m">☎ <a href="tel:+84896907799">+84 896 907 799</a></span><a href="https://healthyspadanang.com/zh/" target="_blank" rel="noopener">官網</a></td><td data-l="預訂"><span class="s ok">已預約</span> 13:00｜7 位</td><td data-l="備註"><span class="s pay">旅客現場付款 VND 3,465,000（現金）</span><br>未按摩的 3 位（含小孩、嬰兒）請協助安排等候或先回別墅</td></tr>
 <tr><td class="t">16:00</td><td class="i"><b>返回別墅休息</b></td><td data-l="預訂">—</td><td data-l="備註">—</td></tr>
 <tr><td class="t">18:30</td><td class="i"><b>晚餐｜Bé Ni 2 海鮮餐廳</b><a href="https://maps.app.goo.gl/h7yHNAogED2HHvVF7" target="_blank" rel="noopener">地圖</a></td><td data-l="預訂"><span class="s ok">已預訂</span> 10 位</td><td data-l="備註">實際時間以貴司訂位為準</td></tr>
 </tbody></table>
