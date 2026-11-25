@@ -1,0 +1,130 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>台南四草春節三日慢遊｜版本一 除夕上午・老街採買</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>:root{--bg:#F7F4EE;--card:#fff;--line:#E4DBCB;--gold:#A37E3E;--gold-d:#7E5F2A;--red:#9E2B25;--text:#2C2A29;--muted:#6F6A63;--soft:#F1EADC}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans TC',sans-serif;line-height:1.75;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px 64px}
+.hero{text-align:center;padding:64px 0 40px}
+.brand{font-family:'Noto Serif TC',serif;letter-spacing:6px;font-size:13px;color:var(--gold);font-weight:600;margin-bottom:22px}
+h1{font-family:'Noto Serif TC',serif;font-size:36px;font-weight:600;letter-spacing:4px;margin-bottom:16px}
+.ver{display:inline-flex;align-items:center;gap:12px;font-family:'Noto Serif TC',serif;font-size:17px;color:var(--gold-d);letter-spacing:2px}
+.ver-tag{background:var(--gold);color:#fff;font-size:13px;padding:3px 14px;border-radius:20px;letter-spacing:3px}
+.facts{margin:36px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;text-align:left}
+.facts div{background:var(--card);padding:16px 20px;font-size:14px}
+.facts span{display:block;font-size:11.5px;letter-spacing:3px;color:var(--gold);margin-bottom:2px}
+.day{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px 32px 14px;margin-top:28px;box-shadow:0 6px 24px rgba(60,40,10,.04);break-inside:auto}
+.day-head{display:flex;align-items:center;gap:20px;padding-bottom:20px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.day-num{font-family:'Noto Serif TC',serif;font-size:15px;color:#fff;background:var(--gold);width:66px;height:66px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:1px}
+.day-date{font-family:'Noto Serif TC',serif;font-size:20px;font-weight:600;letter-spacing:1px}
+.fest{font-size:12.5px;color:var(--red);border:1px solid var(--red);border-radius:4px;padding:1px 8px;margin-left:10px;vertical-align:3px;font-family:'Noto Sans TC',sans-serif;font-weight:500;letter-spacing:2px}
+.route{font-size:13px;color:var(--muted);margin-top:4px}
+.tl{position:relative}
+.item{display:grid;grid-template-columns:104px 22px 1fr;gap:0;position:relative;padding:18px 0;break-inside:avoid}
+.item:not(:last-child)::after{content:'';position:absolute;left:114px;top:38px;bottom:-20px;width:1px;background:var(--line)}
+.time{font-size:13.5px;color:var(--gold-d);font-weight:500;padding-top:2px;font-variant-numeric:tabular-nums}
+.dot{width:11px;height:11px;border-radius:50%;border:2px solid var(--gold);background:#fff;margin-top:8px;position:relative;z-index:1}
+.body{padding-left:6px}
+.tag{font-size:11.5px;letter-spacing:3px;color:var(--gold)}
+.place{font-family:'Noto Serif TC',serif;font-size:18px;font-weight:600;margin:1px 0 4px}
+.desc{font-size:14.5px;color:var(--text)}
+.meta{font-size:13px;color:var(--muted);margin-top:6px}
+.k{display:inline-block;font-size:11px;letter-spacing:2px;background:var(--soft);color:var(--gold-d);padding:0 8px;border-radius:4px;margin-right:8px}
+.item.hl .body{background:linear-gradient(135deg,#FBF6EC,#F6EDDC);border:1px solid #E8D7B6;border-radius:12px;padding:14px 18px;margin-left:6px}
+.item.hl .dot{background:var(--red);border-color:var(--red)}
+.item.hl .tag{color:var(--red)}
+.menu{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:44px 24px 48px;margin-top:28px;text-align:center;break-inside:avoid}
+.menu-sub{font-size:12.5px;letter-spacing:4px;color:var(--red)}
+.menu h2{font-family:'Noto Serif TC',serif;font-size:26px;font-weight:600;letter-spacing:8px;margin:8px 0 2px}
+.menu-note{font-size:12.5px;color:var(--muted);letter-spacing:2px}
+.menu ul{list-style:none;margin:26px auto 0;font-family:'Noto Serif TC',serif;font-size:16px;letter-spacing:4px;line-height:2.25}
+.menu ul::before{content:'';display:block;width:48px;height:1px;background:var(--gold);margin:0 auto 22px}
+footer{text-align:center;margin-top:44px;font-size:12px;color:var(--muted);letter-spacing:3px}
+@media (max-width:640px){
+ .hero{padding:44px 0 28px} h1{font-size:26px;letter-spacing:2px}
+ .facts{grid-template-columns:1fr}
+ .day{padding:22px 18px 8px;border-radius:14px}
+ .day-num{width:54px;height:54px;font-size:13px}
+ .day-date{font-size:17px}
+ .item{grid-template-columns:18px 1fr;padding:14px 0}
+ .time{grid-column:2;grid-row:1;padding:0 0 2px 6px}
+ .dot{grid-column:1;grid-row:1;margin-top:6px}
+ .body{grid-column:2;grid-row:2}
+ .item:not(:last-child)::after{left:5px;top:24px}
+ .item.hl .body{margin-left:0}
+}
+@media print{body{background:#fff}.day,.menu{box-shadow:none}.hero{padding-top:20px}}
+.appx{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:40px 32px 36px;margin-top:28px}
+.appx-head{text-align:center;margin-bottom:26px}
+.appx-head h2{font-family:'Noto Serif TC',serif;font-size:24px;font-weight:600;letter-spacing:6px;margin:8px 0 10px}
+.appx-lead{font-size:13.5px;color:var(--muted);line-height:1.9}
+.grp{margin-top:26px;break-inside:avoid}
+.grp-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:12px;flex-wrap:wrap}
+.grp-meal{font-family:'Noto Serif TC',serif;font-size:18px;font-weight:600;letter-spacing:2px}
+.grp-area{font-size:13px;color:var(--gold-d);margin-left:10px}
+.grp-when{font-size:12.5px;color:var(--muted)}
+.rlist{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.r{display:flex;gap:12px;align-items:flex-start;text-align:left;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer;font:inherit;color:inherit;transition:border-color .15s,background .15s}
+.r:hover{border-color:var(--gold)}
+.r.on{border-color:var(--gold);background:#FBF6EC}
+.rank{flex-shrink:0;width:28px;height:28px;border-radius:50%;border:1.5px dashed #CDBB98;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;color:#fff;margin-top:2px}
+.r.on .rank{background:var(--gold);border:1.5px solid var(--gold)}
+.rinfo{display:flex;flex-direction:column;min-width:0}
+.rname{font-weight:500;font-size:15px}
+.raddr{font-size:12.5px;color:var(--muted);margin-top:2px}
+.rfeat{font-size:12px;color:var(--gold-d);margin-top:3px}
+.reset{margin-top:10px;background:none;border:none;color:var(--muted);font-size:12.5px;text-decoration:underline;cursor:pointer;font-family:inherit}
+.out{margin-top:30px;text-align:center}
+#copy{background:var(--gold);color:#fff;border:none;border-radius:24px;padding:11px 30px;font-size:14.5px;letter-spacing:2px;cursor:pointer;font-family:inherit}
+#copy:hover{background:var(--gold-d)}
+#outtxt{display:block;width:100%;min-height:150px;margin-top:14px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-family:inherit;font-size:13px;color:var(--text);background:#FCFBF8;resize:vertical}
+@media (max-width:640px){.appx{padding:28px 18px}.rlist{grid-template-columns:1fr}}
+@media print{.reset,.out{display:none}}
+</style></head><body><div class="wrap"><header class="hero"><div class="brand">FineDayClub</div>
+<h1>台南四草・春節三日慢遊</h1>
+<div class="ver"><span class="ver-tag">版本一</span>除夕上午・老街採買</div>
+<div class="facts">
+<div><span>日期</span>2027.02.04（四）– 02.06（六）・3 天 2 夜</div>
+<div><span>人數</span>19 位・三代同行</div>
+<div><span>交通</span>中巴包車，全程專人駕駛</div>
+<div><span>住宿</span>台南四草包棟民宿 2 晚</div>
+</div></header>
+<main>
+<section class="day"><div class="day-head"><div class="day-num">Day 1</div><div><div class="day-date">2027.02.04（四）<span class="fest">小年夜</span></div><div class="route">桃園中壢 → 雲林嘉義 → 台南四草</div></div></div><div class="tl"><div class="item"><div class="time">7:30</div><div class="dot"></div><div class="body"><div class="tag">出發移動</div><div class="place">桃園中壢 → 泰安服務區</div><p class="desc">中壢出發，國道南下，途中於泰安服務區休息</p><div class="meta"><span class="k">餐飲</span>早餐自理</div><div class="meta note"><span class="k">提醒</span>提早出發，避開南下車潮</div></div></div>
+<div class="item"><div class="time">12:00–13:30</div><div class="dot"></div><div class="body"><div class="tag">午餐饗宴</div><div class="place">雲林古坑或嘉義民雄</div><p class="desc">庭園台菜合菜（鮮筍、土雞、清蒸海魚）</p><div class="meta"><span class="k">餐飲</span>庭園台菜合菜</div><div class="meta note"><span class="k">提醒</span>腹地寬敞、停車方便，下車即可入座</div></div></div>
+<div class="item"><div class="time">14:45–16:15</div><div class="dot"></div><div class="body"><div class="tag">生態體驗</div><div class="place">四草綠色隧道</div><p class="desc">自大眾廟碼頭搭乘竹筏，穿梭紅樹林綠色水道</p><div class="meta note"><span class="k">提醒</span>竹筏平穩，老少皆宜</div></div></div>
+<div class="item"><div class="time">16:45</div><div class="dot"></div><div class="body"><div class="tag">民宿入住</div><div class="place">台南四草包棟民宿</div><p class="desc">首日早些入住，在民宿好好休息放鬆</p></div></div>
+<div class="item"><div class="time">18:30</div><div class="dot"></div><div class="body"><div class="tag">民宿晚餐</div><div class="place">台南四草包棟民宿</div><p class="desc">長途車程後不再外出，在民宿享用熱騰騰的鴛鴦鍋</p><div class="meta"><span class="k">餐飲</span>民宿鴛鴦鍋套餐</div></div></div></div></section>
+<section class="day"><div class="day-head"><div class="day-num">Day 2</div><div><div class="day-date">2027.02.05（五）<span class="fest">除夕</span></div><div class="route">安平老街 → 漁光島 → 福樓圍爐</div></div></div><div class="tl"><div class="item"><div class="time">09:30–11:30</div><div class="dot"></div><div class="body"><div class="tag">老街採買</div><div class="place">安平老街（延平街）</div><p class="desc">漫步台灣第一街，選購百年老店林永泰興蜜餞與在地蝦餅</p><div class="meta note"><span class="k">提醒</span>春節人潮較多，建議上午早些抵達；老街為徒步區，於周邊下車步行</div></div></div>
+<div class="item"><div class="time">12:00–13:00</div><div class="dot"></div><div class="body"><div class="tag">午間便餐</div><div class="place">安平一帶午餐</div><p class="desc">簡餐或在地小吃合菜，簡單吃</p><div class="meta"><span class="k">餐飲</span>簡餐、小吃合菜</div><div class="meta note"><span class="k">提醒</span>出餐快速</div></div></div>
+<div class="item"><div class="time">13:15–14:30</div><div class="dot"></div><div class="body"><div class="tag">海濱漫步</div><div class="place">漁光島</div><p class="desc">沙灘與木麻黃林步道，吹海風、散步拍照</p><div class="meta note"><span class="k">提醒</span>地勢平坦，長輩與孩童皆宜</div></div></div>
+<div class="item"><div class="time">15:00–16:40</div><div class="dot"></div><div class="body"><div class="tag">民宿休憩</div><div class="place">台南四草包棟民宿</div><p class="desc">回民宿梳洗休息，準備除夕圍爐</p><div class="meta note"><span class="k">提醒</span>留充裕時間休息換裝</div></div></div>
+<div class="item hl"><div class="time">17:15–19:15</div><div class="dot"></div><div class="body"><div class="tag">除夕圍爐</div><div class="place">福樓餐廳</div><p class="desc">米其林綠色指南推薦的台菜老店，全家圍爐團聚</p><div class="meta"><span class="k">餐飲</span>福樓圍爐年菜</div><div class="meta note"><span class="k">提醒</span>已預訂 17:15 場次，16:45 自民宿出發</div></div></div>
+<div class="item"><div class="time">19:45</div><div class="dot"></div><div class="body"><div class="tag">返回民宿</div><div class="place">台南四草包棟民宿</div><p class="desc">回民宿發紅包、守歲</p></div></div></div></section>
+<section class="day"><div class="day-head"><div class="day-num">Day 3</div><div><div class="day-date">2027.02.06（六）<span class="fest">大年初一</span></div><div class="route">四草 → 永康 → 溪湖糖廠 → 苗栗公館 → 桃園中壢</div></div></div><div class="tl"><div class="item"><div class="time">09:30–11:30</div><div class="dot"></div><div class="body"><div class="tag">晨光慢活</div><div class="place">台南四草包棟民宿</div><p class="desc">民宿自由時間、整理行李、拍攝全家福</p><div class="meta"><span class="k">餐飲</span>民宿早餐</div><div class="meta note"><span class="k">提醒</span>睡到自然醒，不趕時間</div></div></div>
+<div class="item"><div class="time">12:00–13:30</div><div class="dot"></div><div class="body"><div class="tag">開運午餐</div><div class="place">永康交流道周邊午餐</div><p class="desc">台菜海鮮合菜，用餐後直接上國道北返</p><div class="meta"><span class="k">餐飲</span>台菜海鮮合菜</div><div class="meta note"><span class="k">提醒</span>避開市區車流</div></div></div>
+<div class="item"><div class="time">15:00–16:15</div><div class="dot"></div><div class="body"><div class="tag">懷舊糖廠</div><div class="place">彰化溪湖糖廠</div><p class="desc">園區平坦好走，可散步或搭乘糖廠小火車，品嚐古早味點心</p><div class="meta"><span class="k">餐飲</span>糖廠冰棒、古早味點心</div><div class="meta note"><span class="k">提醒</span>小火車依當日營運搭乘</div></div></div>
+<div class="item"><div class="time">17:30–19:00</div><div class="dot"></div><div class="body"><div class="tag">客家晚宴</div><div class="place">苗栗公館晚餐</div><p class="desc">客家合菜，用餐後再走最後一段路</p><div class="meta"><span class="k">餐飲</span>客家合菜（梅干扣肉、炒粄條、客家土雞）</div></div></div>
+<div class="item"><div class="time">20:15 前後</div><div class="dot"></div><div class="body"><div class="tag">平安返抵</div><div class="place">桃園中壢</div><p class="desc">順利抵達桃園中壢，平安賦歸</p></div></div></div></section>
+<section class="menu"><div class="menu-sub">除夕圍爐・福樓餐廳</div><h2>年菜盛宴</h2><div class="menu-note">十人份・共兩桌</div>
+<ul><li>烏金九孔龍蝦沙拉</li><li>古早味海皇羹</li><li>經典紅蟳米糕</li><li>紹興醇香大蝦</li><li>老滷筍干控肉</li><li>五柳枝海鱸魚</li><li>七彩紅糟香酥鰻</li><li>鹿野人蔘燉雞湯</li><li>蠔皇鮑魚燴時蔬</li><li>富貴迎春甜品</li></ul></section>
+<section class="appx" id="appx"><div class="appx-head"><div class="menu-sub">附錄</div><h2>餐廳優先順序</h2><p class="appx-lead">請依您的喜好，點選餐廳排出優先順序（再點一次可取消）。<br>我們將依序為您洽詢與預訂；春節期間營業以店家公告為準。</p></div><div class="grp" data-g="0" data-meal="2/4（四）小年夜午餐"><div class="grp-head"><div><span class="grp-meal">2/4（四）小年夜午餐</span><span class="grp-area">雲林古坑・斗六／嘉義民雄</span></div><div class="grp-when">Day 1・12:00</div></div><div class="rlist"><button type="button" class="r" data-name="福芳臺菜"><span class="rank"></span><span class="rinfo"><span class="rname">福芳臺菜</span><span class="raddr">雲林縣斗六市南興街 27 號</span><span class="rfeat">創意台菜・大小包廂、免費停車</span></span></button><button type="button" class="r" data-name="桂竹林休閒餐廳"><span class="rank"></span><span class="rinfo"><span class="rname">桂竹林休閒餐廳</span><span class="raddr">雲林縣古坑鄉桂林村桃源 2 之 12 號</span><span class="rfeat">甕仔雞、山產合菜・大圓桌</span></span></button><button type="button" class="r" data-name="竽芯園庭園美食屋"><span class="rank"></span><span class="rinfo"><span class="rname">竽芯園庭園美食屋</span><span class="raddr">雲林縣古坑鄉荷苞村尖山坑路 72 號</span><span class="rfeat">客家風味合菜・庭園餐廳</span></span></button><button type="button" class="r" data-name="竹香園甕缸雞 民雄店"><span class="rank"></span><span class="rinfo"><span class="rname">竹香園甕缸雞 民雄店</span><span class="raddr">嘉義縣民雄鄉雙福村建國路二段 146-191 號</span><span class="rfeat">甕缸雞、台式合菜・大型停車場</span></span></button></div><button type="button" class="reset">重新排序</button></div><div class="grp" data-g="1" data-meal="2/5（五）除夕午餐"><div class="grp-head"><div><span class="grp-meal">2/5（五）除夕午餐</span><span class="grp-area">安平一帶</span></div><div class="grp-when">Day 2・12:00</div></div><div class="rlist"><button type="button" class="r" data-name="彩豐樓（台南大員皇冠假日酒店）"><span class="rank"></span><span class="rinfo"><span class="rname">彩豐樓（台南大員皇冠假日酒店）</span><span class="raddr">臺南市安平區州平路 289 號</span><span class="rfeat">港式、中式合菜・飯店餐廳</span></span></button><button type="button" class="r" data-name="LA時尚川菜 安平店"><span class="rank"></span><span class="rinfo"><span class="rname">LA時尚川菜 安平店</span><span class="raddr">臺南市安平區永華路二段 520 號</span><span class="rfeat">川菜合菜</span></span></button><button type="button" class="r" data-name="日鮮市集"><span class="rank"></span><span class="rinfo"><span class="rname">日鮮市集</span><span class="raddr">臺南市安平區永華路二段 363 號</span><span class="rfeat">海鮮合菜・大小包廂</span></span></button><button type="button" class="r" data-name="津昌貨櫃碼頭海鮮餐廳"><span class="rank"></span><span class="rinfo"><span class="rname">津昌貨櫃碼頭海鮮餐廳</span><span class="raddr">臺南市安平區安平路 182 號</span><span class="rfeat">熱炒海鮮・近安平老街</span></span></button></div><button type="button" class="reset">重新排序</button></div><div class="grp" data-g="2" data-meal="2/6（六）大年初一午餐"><div class="grp-head"><div><span class="grp-meal">2/6（六）大年初一午餐</span><span class="grp-area">永康交流道周邊</span></div><div class="grp-when">Day 3・12:00</div></div><div class="rlist"><button type="button" class="r" data-name="桂田酒店 好也粵式中餐廳"><span class="rank"></span><span class="rinfo"><span class="rname">桂田酒店 好也粵式中餐廳</span><span class="raddr">臺南市永康區永安一街 99 號</span><span class="rfeat">粵式桌菜・飯店包廂</span></span></button><button type="button" class="r" data-name="LA時尚川菜 永康店"><span class="rank"></span><span class="rinfo"><span class="rname">LA時尚川菜 永康店</span><span class="raddr">臺南市永康區永大路二段 815 號</span><span class="rfeat">川菜合菜・包廂多、免費停車</span></span></button><button type="button" class="r" data-name="情定婚宴城堡"><span class="rank"></span><span class="rinfo"><span class="rname">情定婚宴城堡</span><span class="raddr">臺南市永康區中正北路 403 號</span><span class="rfeat">中式合菜</span></span></button></div><button type="button" class="reset">重新排序</button></div><div class="grp" data-g="3" data-meal="2/6（六）大年初一晚餐"><div class="grp-head"><div><span class="grp-meal">2/6（六）大年初一晚餐</span><span class="grp-area">苗栗公館・銅鑼</span></div><div class="grp-when">Day 3・17:30</div></div><div class="rlist"><button type="button" class="r" data-name="連記甘味花園餐廳"><span class="rank"></span><span class="rinfo"><span class="rname">連記甘味花園餐廳</span><span class="raddr">苗栗縣銅鑼鄉九湖村 5 鄰 40 號</span><span class="rfeat">百年封鴨、客家合菜・花園景觀</span></span></button><button type="button" class="r" data-name="陶之飲"><span class="rank"></span><span class="rinfo"><span class="rname">陶之飲</span><span class="raddr">苗栗縣公館鄉成功路 23 號</span><span class="rfeat">道地客家家常菜</span></span></button><button type="button" class="r" data-name="饗樂花園餐廳"><span class="rank"></span><span class="rinfo"><span class="rname">饗樂花園餐廳</span><span class="raddr">苗栗縣公館鄉大坑村 6 鄰 162-3 號</span><span class="rfeat">客製客家桌菜・大包廂</span></span></button><button type="button" class="r" data-name="新方樓餐廳"><span class="rank"></span><span class="rinfo"><span class="rname">新方樓餐廳</span><span class="raddr">苗栗縣公館鄉通明街 58 號</span><span class="rfeat">客家桌菜・包廂</span></span></button><button type="button" class="r" data-name="鶴山飯館"><span class="rank"></span><span class="rinfo"><span class="rname">鶴山飯館</span><span class="raddr">苗栗縣公館鄉鶴山村 7 鄰 233 號</span><span class="rfeat">客家桌菜・二樓包廂</span></span></button><button type="button" class="r" data-name="范大哥餐館"><span class="rank"></span><span class="rinfo"><span class="rname">范大哥餐館</span><span class="raddr">苗栗縣公館鄉五谷村 15 鄰五谷 201-4 號</span><span class="rfeat">客家菜、桌菜・包廂</span></span></button><button type="button" class="r" data-name="棗莊古藝庭園膳坊"><span class="rank"></span><span class="rinfo"><span class="rname">棗莊古藝庭園膳坊</span><span class="raddr">苗栗縣公館鄉福星村 43-6 號</span><span class="rfeat">紅棗料理・庭園餐廳</span></span></button></div><button type="button" class="reset">重新排序</button></div><div class="out"><button type="button" id="copy">複製排序結果</button><textarea id="outtxt" readonly placeholder="排序完成後，點上方按鈕複製，貼給您的專屬顧問即可"></textarea></div></section>
+</main>
+<footer>FineDayClub ・ 祝您新春愉快，闔家平安</footer></div><script>(function(){
+var state={};
+function render(g){var el=document.querySelector('.grp[data-g="'+g+'"]');var ord=state[g]||[];
+ el.querySelectorAll('.r').forEach(function(b){var i=ord.indexOf(b.dataset.name);b.classList.toggle('on',i>-1);b.querySelector('.rank').textContent=i>-1?(i+1):'';});
+ buildText();}
+function buildText(){var lines=['【餐廳優先順序】'];document.querySelectorAll('.grp').forEach(function(el){var ord=state[el.dataset.g]||[];
+ lines.push('');lines.push(el.dataset.meal+'：');if(!ord.length)lines.push('（未排序）');ord.forEach(function(n,i){lines.push((i+1)+'. '+n);});});
+ document.getElementById('outtxt').value=lines.join('\n');}
+document.querySelectorAll('.grp').forEach(function(el){var g=el.dataset.g;state[g]=[];
+ el.querySelectorAll('.r').forEach(function(b){b.addEventListener('click',function(){var o=state[g],i=o.indexOf(b.dataset.name);if(i>-1)o.splice(i,1);else o.push(b.dataset.name);render(g);});});
+ el.querySelector('.reset').addEventListener('click',function(){state[g]=[];render(g);});});
+document.getElementById('copy').addEventListener('click',function(){var t=document.getElementById('outtxt'),btn=this;
+ function done(){btn.textContent='已複製 ✓';setTimeout(function(){btn.textContent='複製排序結果';},1800);}
+ if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t.value).then(done,function(){t.select();document.execCommand('copy');done();});}
+ else{t.select();document.execCommand('copy');done();}});
+buildText();
+})();
+</script></body></html>
